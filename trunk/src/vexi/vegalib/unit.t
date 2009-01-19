@@ -26,7 +26,6 @@
         }
         
         thisbox.KeyPressed ++= function(v) {
-            vexi.log.info("key: "+v);
             switch(v) {
                 case "right": right=true; break;
                 case "down": down=true; break;
