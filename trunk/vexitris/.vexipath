@@ -1,0 +1,8 @@
+{
+  "source" : [
+    "F/vexitris/src",
+    "LVexi Game Library",
+    "LVexi Platform"
+  ],
+  "projects" : [ ]
+}
