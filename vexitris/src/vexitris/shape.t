@@ -1,6 +1,7 @@
 <!-- Copyright 2008 - see COPYING for details [LGPL] -->
 
-<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexitris">
+<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexitris"
+    xmlns:vegalib="vexi.vegalib">
     <meta:doc>
         <author>Charles Goodwin</author>
         <notes>
@@ -88,19 +89,59 @@
 	    
 	    /** create and fill with a new shape of the specified type/color */
 	    var blockargs = [];
+	    var blockinds = [];
 	    thisbox.newShape = function(color, type) {
             blockargs[0] = colors[color];
 	        var s = shapes[type];
+	        var count = 0;
             for (var i=0; 4>i; i++) {
                 for (var j=0; 4>j; j++) {
                     if (s[(4*i)+j]) {
                         var b = .block(vexi.box, blockargs);
                         thisbox[i][j][0] = b;
+                        blockinds[count] = i+4*j;
                         count++;
                     }
                 }
             }
 	    }
+	    
+        // [  0,  1,  2,  3,     CW [ 12,  8,  4,  0,    CCW [  3,  7, 11, 15,
+        //    4,  5,  6,  7,          13,  9,  5,  1,           2,  6, 10, 14,
+        //    8,  9, 10, 11,          14, 10,  6,  2,           1,  5,  9, 13,
+        //   12, 13, 14, 15  ]        15, 11,  7,  3  ]         0,  4,  8, 12  ]
+	    var clockwise = [ 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 ];
+        var countercw = [ 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 ];
+	    
+	    thisbox.rotateCW = function() {
+            var pos, bx, by, b;
+            for (var i=0; 4>i; i++) {
+                pos = blockinds[i];
+                bx = pos%4;
+                by = (pos-bx)/4;
+                b = thisbox[bx][by][0];
+                pos = clockwise[pos];
+                bx = pos%4;
+                by = (pos-bx)/4;
+                blockinds[i] = pos;
+                thisbox[bx][by][0] = b;
+            }
+	    }
+        
+        thisbox.rotateCCW = function() {
+            var pos, bx, by, b;
+            for (var i=0; 4>i; i++) {
+                pos = blockinds[i];
+                bx = pos%4;
+                by = (pos-bx)/4;
+                b = thisbox[bx][by][0];
+                pos = countercw[pos];
+                bx = pos%4;
+                by = (pos-bx)/4;
+                blockinds[i] = pos;
+                thisbox[bx][by][0] = b;
+            }
+        }
 	    
     </ui:box>
 </vexi>
