@@ -19,6 +19,12 @@
             cascade = v;
         }
         
+        KeyPressed ++= function(v) {
+            if (v=="left") $shape.rotateCCW();
+            if (v=="right") $shape.rotateCW();
+            cascade = v;
+        }
+        
         vexi.ui.frame = thisbox;
         
     </ui:box>
