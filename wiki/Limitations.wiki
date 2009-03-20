@@ -1,0 +1,30 @@
+#summary An overview of the limitations of Vexi for creating games
+
+= Introduction =
+
+The Vexi platform is primarily for creating user interfaces.  It has several limitations when it comes to creating games.
+
+= Sound =
+
+There is currently no support for sound in Vexi.  It will have it soon, but even then it will be fairly limited.  Vexi/Vegalib should not be used for audio-intensive games.
+
+= Graphics =
+
+Vexi runs on Java.  It also presents a very high level of abstraction to the developer, which means that in general it handles graphics very inefficiently.
+
+== No z-clipping ==
+
+In the following example, every box with a fill gets painted although the user only sees the blue box:
+
+{{{
+<ui:box layout="layer">
+    <ui:box fill="red" />
+    <ui:box fill="yellow" />
+    <ui:box fill="green" />
+    <ui:box fill="blue" />
+</ui:box>
+}}}
+
+== Inconsistent acceleration ==
+
+Java, and by extension Vexi, isn't great at emphasising what images get handled by the graphics card and what gets handled by software drivers.  In general, if you want your images to be hardware accelerated, make them power of 2 squares i.e. 64x64, 128x128 etc.
