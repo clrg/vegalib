@@ -12,6 +12,8 @@
 	    var ulength = 0;
 	    var maxrate = 40;
 	    
+	    thisobj.fps = 0;
+	    
 	    /** tell the call thread to limit itself to the given fps */
 	    thisobj.limitFPS = function(fps) {
 	        maxrate = arguments.length and (fps>1) ? 1000/fps : 0;
@@ -31,6 +33,8 @@
 	    var time = vexi.date().getTime();
 	    var dtime;
 	    var gotime;
+	    var fpstime;
+	    var fpscount;
         
         /** clears all scheduled objects from the current thread */
         thisobj.clear = function() {
@@ -56,11 +60,21 @@
             go = true;
 	        tip = true;
 	        time = vexi.date().getTime();
+	        dtime = 0;
+	        gotime = 0;
+	        fpstime = 0;
+	        fpscount = 0;
             vexi.thread = function() {
                 while (go) {
                     dtime = vexi.date().getTime() - time;
                     time += dtime;
                     gotime += dtime;
+                    fpstime += dtime;
+                    if (fpstime>1000) {
+                        fps = fpscount;
+                        fpscount = 0;
+                        fpstime -= 1000;
+                    } else fpscount++;
                     var drop = 0;
                     for (var i=0; ulength>i; i++) {
                         var o = updates[i];
@@ -79,7 +93,11 @@
                         updates.splice(ulength, drop);
                     }
                     if (ulength==0 and !runempty) go = false;
-                    else vexi.thread.sleep(maxrate);
+                    else {
+                        // attempt to sleep so that we are run after
+                        // maxrate ms - accounting for any rendering
+                        if (maxrate>dtime) vexi.thread.sleep(maxrate-dtime);
+                    }
                 }
                 tip = false;
             }

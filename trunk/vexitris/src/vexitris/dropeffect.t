@@ -83,6 +83,7 @@
                 if (b.y > h) {
                     b.thisbox = null;
                     num--;
+                    i--;
                 }
             }
             // finished when there are no more blocks left

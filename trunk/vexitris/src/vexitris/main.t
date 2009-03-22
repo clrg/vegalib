@@ -9,11 +9,14 @@
     </meta:doc>
     
     <wi:surface />
-    <vgl:game layout="place">
+    <vgl:game fill="black" layout="place">
         <shape id="shape" />
         <dropeffect id="dropeffect" />
+        <ui:box id="fpsdisplay" align="topright" textcolor="white" />
         
-        $dropeffect.gamethread = vgl.scheduler({});
+        var s = vgl.scheduler({});
+        s.fps ++= function(v) { cascade = v; $fpsdisplay.text = v+" frames per second"; }
+        $dropeffect.gamethread = s;
         
         Press1 ++= function(v) {
             var blocks = $shape.getBlocks();
@@ -32,5 +35,6 @@
         }
         
         vexi.ui.frame = thisbox;
+        
     </vgl:game>
 </vexi>
