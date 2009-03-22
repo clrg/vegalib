@@ -1,4 +1,4 @@
-<!-- LGPL -->
+<!-- Copyright 2009 - MIT License -->
 
 <vexi xmlns:ui="vexi://ui">
     <js:object>
@@ -6,7 +6,7 @@
         var mref;
         var size;
         
-        matrix ++= function(v) {
+        thisobj.matrix ++= function(v) {
             var l = v.length;
             var valid = (l==4 or l==9);
             if (valid == false) throw "Expected an array of length '4' or '9' but got '"+l+"'";
@@ -15,7 +15,7 @@
             size = l;
         }
         
-        transform = function(v, ret) {
+        thisobj.transform = function(v, ret) {
             var l = v.length;
             if (size/l != l) throw "Expected an array of length '"+vexi.math.sqrt(size)+" but got '"+l+"'";
             if (ret == null) ret = [];

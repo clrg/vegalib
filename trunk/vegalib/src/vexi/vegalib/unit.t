@@ -1,4 +1,4 @@
-<!-- LGPL -->
+<!-- Copyright 2009 - MIT License -->
 
 <vexi xmlns:ui="vexi://ui">
     <ui:box layout="place">
