@@ -1,0 +1,7 @@
+{
+  "source" : [
+    "F/vegalib/example",
+    "F/vegalib/src"
+  ],
+  "projects" : [ ]
+}

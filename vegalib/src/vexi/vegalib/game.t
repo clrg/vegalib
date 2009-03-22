@@ -1,6 +1,6 @@
-<!-- LGPL -->
+<!-- Copyright 2009 - MIT License -->
 
-<vexi xmlns:ui="vexi://ui">
+<vexi xmlns:ui="vexi://ui" xmlns="org.vexi.vegalib">
     <ui:box>
         
         var player;
