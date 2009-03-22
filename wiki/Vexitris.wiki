@@ -1,0 +1,7 @@
+#summary A tetris clone!
+
+Vexitris aims to be a fun tetris implementation with a bit of individual character.  It is somewhat inspired by the classic tetris game 'Acid Tetris' for DOS.
+
+= Videos =
+
+ * [http://vimeo.com/3796249 Drop effect test]
