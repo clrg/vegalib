@@ -1,7 +1,7 @@
 <!-- Copyright 2008 - see COPYING for details [LGPL] -->
 
 <vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexi.theme"
-    xmlns:lay="org.vexi.lib.layout">
+    xmlns:lay="org.vexi.lib.layout" xmlns:vexitris="vexitris">
     <meta:doc>
         <author>Charles Goodwin</author>
     </meta:doc>
@@ -31,7 +31,23 @@
         </ui:box>
         <ui:box fill="black" width="1" hshrink="true" />
         
-        $shapefill.fill = arguments[0];
+        fill ++= function(v) { $shapefill.fill = v; return; }
+        thisbox ++= static.thisboxNull;
         
     </ui:box>
+    
+    var blockCount = 0;
+    var blockCache = [];
+    
+    static.getBlock = function(fill) {
+        var b = blockCount > 0 ? blockCache[--blockCount] : vexitris.block(vexi.box);
+        b.fill = fill;
+        return b;
+    }
+    
+    static.thisboxNull = function(v) {
+        cascade = v;
+        if (v==null) blockCache[blockCount++] = trapee;
+    }
+    
 </vexi>
