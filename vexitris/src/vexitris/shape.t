@@ -88,16 +88,14 @@
 	    }
 	    
 	    /** create and fill with a new shape of the specified type/color */
-	    var blockargs = [];
 	    var blockinds = [];
 	    thisbox.newShape = function(color, type) {
-            blockargs[0] = colors[color];
 	        var s = shapes[type];
 	        var count = 0;
             for (var i=0; 4>i; i++) {
                 for (var j=0; 4>j; j++) {
                     if (s[(4*i)+j]) {
-                        var b = .block(vexi.box, blockargs);
+                        var b = .block..getBlock(colors[color]);
                         thisbox[i][j][0] = b;
                         blockinds[count] = i+4*j;
                         count++;
