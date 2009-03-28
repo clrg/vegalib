@@ -9,7 +9,7 @@
         </notes>
     </meta:doc>
     
-    <ui:box>
+    <ui:box shrink="true">
         
         var dimX = arguments[0];
         var dimY = arguments[1];
@@ -17,9 +17,9 @@
         for (var i=0; dimX>i; i++) {
             var b = vexi.box;
             thisbox[i] = b;
+            b.orient = "vertical";
             for (var j=0; dimY>j; j++) {
                 b[j] = .space(vexi.box);
-                b[j].orient = "vertical";
             }
         }
         

@@ -18,20 +18,12 @@
             cascade = v; h = v;
         }
         
-        // optimized lookup of frame object
-        // allowing for testing (no surface)
-        var sf;
-        thisbox.surface ++= function(v) {
-            cascade = v;
-            sf = v ? v.frame : thisbox;
-        }
-        
         // optimized lookup of numchildren
         var num = 0;
         
         /** attach and drop the given box */
         thisbox.attach = function(b) {
-            var bpos = sf.distanceto(b);
+            var bpos = thisbox.distanceto(b);
             thisbox[num++] = b;
             // maintain on-screen position
             b.x = bpos.x;
