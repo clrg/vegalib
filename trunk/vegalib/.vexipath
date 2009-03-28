@@ -1,7 +1,8 @@
 {
   "source" : [
     "F/vegalib/example",
-    "F/vegalib/src"
+    "F/vegalib/src",
+    "LVexi Platform"
   ],
   "projects" : [ ]
 }
