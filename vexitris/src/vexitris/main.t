@@ -10,9 +10,12 @@
     
     <wi:surface />
     <vgl:game fill="black" layout="place">
-        <shape id="shape" />
-        <dropeffect id="dropeffect" />
-        <ui:box id="fpsdisplay" align="topright" textcolor="white" />
+        <logo />
+        <ui:box layout="place">
+            <shape id="shape" />
+            <dropeffect id="dropeffect" />
+            <ui:box id="fpsdisplay" align="topright" textcolor="white" />
+        </ui:box>
         
         var s = vgl.scheduler({});
         s.fps ++= function(v) { cascade = v; $fpsdisplay.text = v+" frames per second"; }
