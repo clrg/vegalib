@@ -19,8 +19,7 @@
         
         var logowidth = logo[0].length;
         var logoheight = logo.length;
-        var logoboard = .board(vexi.box, [logowidth, logoheight]);
-        thisbox[0] = logoboard;
+        var logoboard = .board(thisbox, [logowidth, logoheight]);
         
         for (var i=0; logowidth>i; i++) {
             for (var j=0; logoheight>j; j++) {

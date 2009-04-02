@@ -10,7 +10,9 @@
     
     <wi:surface />
     <vgl:game fill="black" layout="place">
-        <logo />
+        <zoomeffect id="zoom">
+            <logo />
+        </zoomeffect>
         <ui:box layout="place">
             <shape id="shape" />
             <dropeffect id="dropeffect" />
@@ -20,6 +22,7 @@
         var s = vgl.scheduler({});
         s.fps ++= function(v) { cascade = v; $fpsdisplay.text = v+" frames per second"; }
         $dropeffect.gamethread = s;
+        $zoom.gamethread = s;
         
         Press1 ++= function(v) {
             var blocks = $shape.getBlocks();
@@ -28,6 +31,11 @@
             var s = vexi.math.floor(7 * vexi.math.random());
             var c = vexi.math.floor(7 * vexi.math.random());
             $shape.newShape(s, c);
+            cascade = v;
+        }
+        
+        Press2 ++= function(v) {
+            $zoom.zoom = true;
             cascade = v;
         }
         
