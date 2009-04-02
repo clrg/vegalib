@@ -23,18 +23,20 @@
         
         /** attach and drop the given box */
         thisbox.attach = function(b) {
-            var bpos = thisbox.distanceto(b);
+            var dt = thisbox.distanceto(b);
+            var bx = dt.x;
+            var by = dt.y;
             thisbox[num++] = b;
             // maintain on-screen position
-            b.x = bpos.x;
-            b.y = bpos.y;
+            b.x = bx;
+            b.y = by;
             // box position properties are integers but we
             // need more precision so store them separately
-            b.pos_x = bpos.x;
-            b.pos_y = bpos.y;
+            b.pos_x = bx;
+            b.pos_y = by;
             // slighty random initial velocities
-            b.vel_x = 5-vexi.math.floor(10*vexi.math.random());
-            b.vel_y = vexi.math.floor(10*vexi.math.random());
+            b.vel_x = 10-vexi.math.floor(20*vexi.math.random());
+            b.vel_y = 0-vexi.math.floor(20*vexi.math.random());
             // get started!
             if (num==1) gamethread.run(thisbox);
         }
@@ -42,7 +44,7 @@
         // optimized reference to power-of function
         var pow = vexi.math.pow;
         // standard y acceleration in pixels/second
-        var acc = 200;
+        var acc = 1000;
         
         /** update invoked by gamethread */
         thisbox.call = function(gotime, dtime) {
