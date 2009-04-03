@@ -9,43 +9,45 @@
     </meta:doc>
     
     <wi:surface />
-    <vgl:game fill="black" layout="place">
-        <zoomeffect id="zoom">
+    <ui:box fill="black">
+        <ui:box id="about" orient="vertical" vshrink="true">
+            <vtext text="A Charles Goodwin Game" />
+            <vtext text="www.charlesgoodwin.co.uk" />
+            <ui:box height="20" />
+            <vtext text="Vexi Platform" />
+            <vtext text="vexi.sourceforge.net" />
+            <ui:box height="20" />
+            <vtext text="VeGaLib library" />
+            <vtext text="code.google.com/p/vegalib" />
+        </ui:box>
+        <zoomeffect id="zoom" display="false">
             <logo />
         </zoomeffect>
-        <ui:box layout="place">
-            <shape id="shape" />
-            <dropeffect id="dropeffect" />
-            <ui:box id="fpsdisplay" align="topright" textcolor="white" />
-        </ui:box>
         
-        var s = vgl.scheduler({});
-        s.fps ++= function(v) { cascade = v; $fpsdisplay.text = v+" frames per second"; }
-        $dropeffect.gamethread = s;
-        $zoom.gamethread = s;
-        
-        Press1 ++= function(v) {
-            var blocks = $shape.getBlocks();
-            for (var i=0; blocks.length>i; i++)
-                $dropeffect.attach(blocks[i]);
-            var s = vexi.math.floor(7 * vexi.math.random());
-            var c = vexi.math.floor(7 * vexi.math.random());
-            $shape.newShape(s, c);
-            cascade = v;
-        }
-        
-        Press2 ++= function(v) {
-            $zoom.zoom = true;
-            cascade = v;
-        }
-        
-        KeyPressed ++= function(v) {
-            if (v=="left") $shape.rotateCCW();
-            if (v=="right") $shape.rotateCW();
-            cascade = v;
-        }
+        surface.scheduler = vgl.scheduler({});
         
         vexi.ui.frame = thisbox;
         
-    </vgl:game>
+        vexi.thread = function() {
+            for (var i=0; $about.numchildren>i; i++) {
+                $about[i].fade = true;
+            }
+        }
+        
+        Press1 ++= function(v) {
+            cascade = v;
+            for (var i=0; $about.numchildren>i; i++) {
+                $about[i].fade = true;
+            }
+            $about[0].finished ++= function(v) {
+                $about.display = false;
+                $zoom.display = true;
+                $zoom.zoom = true;
+                cascade = v;
+                $about[0] --= callee;
+            }
+            Press1 --= callee;
+        }
+        
+    </ui:box>
 </vexi>

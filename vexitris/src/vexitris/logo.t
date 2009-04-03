@@ -26,7 +26,6 @@
                 if (logo[j].charAt(i)!='*') continue;
                 var b = .block(vexi.box);
                 b.fill = "blue";
-                vexi.trace(i+", "+j);
                 logoboard[i][j][0] = b;
             }
         }

@@ -10,8 +10,6 @@
     
     <ui:box align="topleft" layout="place">
         
-        thisbox.gamethread;
-        
         // optimized lookup of height
         var h = 0;
         thisbox.height ++= function(v) {
@@ -20,16 +18,20 @@
         
         // optimized lookup of numchildren
         var num = 0;
+        var dt = thisbox.distanceto(thisbox);
         
         /** attach and drop the given box */
         thisbox.attach = function(b) {
-            var dt = thisbox.distanceto(b);
+            dt.to = b;
             var bx = dt.x;
             var by = dt.y;
             thisbox[num++] = b;
             // maintain on-screen position
             b.x = bx;
             b.y = by;
+            // maintain existing dimensions
+            b.width = b.width;
+            b.height = b.height;
             // box position properties are integers but we
             // need more precision so store them separately
             b.pos_x = bx;
@@ -38,7 +40,7 @@
             b.vel_x = 10-vexi.math.floor(20*vexi.math.random());
             b.vel_y = 0-vexi.math.floor(20*vexi.math.random());
             // get started!
-            if (num==1) gamethread.run(thisbox);
+            if (num==1) surface.scheduler.run(thisbox);
         }
         
         // optimized reference to power-of function

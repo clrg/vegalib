@@ -18,7 +18,7 @@
             var numy = board[0].numchildren;
             var curx = 0;
             var inc = show ? 4 : -4;
-            gamethread.run({
+            surface.scheduler.run({
                 call:function(gotime, dtime) {
                     if (curx - numy - range > numx) return true;
                     // dtime in seconds
