@@ -1,4 +1,4 @@
-<!-- Copyright 2008 - see COPYING for details [LGPL] -->
+<!-- Copyright 2009 - see COPYING for details [GPL] -->
 
 <vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexi.theme"
     xmlns:lay="org.vexi.lib.layout" xmlns:vexitris="vexitris">
