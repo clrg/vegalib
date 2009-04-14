@@ -25,5 +25,10 @@
         fadelist = $menulinks;
         fadefrom = 1;
         
+        start ++= function(v) {
+            cascade = v;
+            $zoom.zoom = true;
+        }
+        
     </screen>
 </vexi>

@@ -24,8 +24,7 @@
         
         surface.state ++= function(v) {
             cascade = v;
-            vexi.trace(v);
-            switch ($menu.state) {
+            switch (v) {
             case "Menu":
                 current = $menu;
                 break;
@@ -39,13 +38,13 @@
                 surface.frame.Close = true;
                 break;
             default:
-                throw "Invalid state '"+$menu.state+"'";
+                throw "Invalid state '"+v+"'";
             }
         }
         
         vexi.ui.frame = thisbox;
         
-        $about.start = true;
+        current = $about;
         
     </ui:box>
 </vexi>
