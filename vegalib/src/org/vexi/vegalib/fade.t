@@ -33,13 +33,13 @@
             var finished = false;
             if (fadein) {
                 alphastate = startstate - dfill;
-                if (0 > alphastate) {
+                if (0 >= alphastate) {
                     alphastate = 0;
                     finished = true;
                 }
             } else {
                 alphastate = startstate + dfill;
-                if (alphastate > 255) {
+                if (alphastate >= 255) {
                     alphastate = 255; 
                     finished = true;
                 }
@@ -47,8 +47,14 @@
             var a = alphastate.toString(16);
             var f = '#'+ (a.length>1?'':'0') + a + fillbase;
             $overlay.fill = f;
-            try { if (finished) thisbox.finished = true; }
-            finally { return finished; }
+            try {
+                if (finished) {
+                    isfading = false;
+                    thisbox.finished = true;
+                }
+            } finally {
+                return finished;
+            }
         }
         
         /** function to fade in then out with a gap period of 'ms' milliseconds */
@@ -56,7 +62,10 @@
             fadein = !fadein;
             startstate = alphastate;
             time = 0;
-            surface.scheduler.run(thisbox);
+            if (isfading==false) {
+                isfading = true;
+                surface.scheduler.run(thisbox);
+            }
             return;
         }
         
