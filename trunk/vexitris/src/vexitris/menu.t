@@ -25,6 +25,11 @@
         fadelist = $menulinks;
         fadefrom = 1;
         
+        next ++= function(v) {
+            cascade = v;
+            $zoom.zoom = true;
+        }
+        
         start ++= function(v) {
             cascade = v;
             $zoom.zoom = true;

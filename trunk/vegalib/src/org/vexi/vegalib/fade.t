@@ -15,17 +15,18 @@
         
         addRedirect(thisbox, $content, "font", "fontsize", "text", "textcolor");
         
-        thisbox.fadeperiod = 2000;
-        thisbox.fading = false;
-        thisbox.finished = false;
-        thisbox.waitperiod = 2000;
-        
         var time = 0;
         var fadein = false;
         var isfading = false;
         var fillbase = "000000";
         var alphastate = 255;
         
+        thisbox.fadeperiod = 2000;
+        thisbox.fading ++= function() { return isfading; }
+        thisbox.finished = false;
+        thisbox.waitperiod = 2000;
+        
+        /** call implementation for scheduling */
         thisbox.call = function(gotime, dtime) {
             // dtime in seconds
             time += dtime;
@@ -68,6 +69,10 @@
             }
             return;
         }
+        
+        // conditional fade i.e. only in or only out
+        thisbox.fadein ++= function(v) { if (!fadein) fade = true; return; }
+        thisbox.fadeout ++= function(v) { if (fadein) fade = true; return; }
         
     </ui:box>
 </vexi>

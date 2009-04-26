@@ -15,7 +15,24 @@
          
          fadelist = $about;
          
-         finished ++= function(v) { surface.state = "Menu"; return; }
+         var toMenu = function(v) {
+             surface.state = "Menu";
+             KeyPressed --= toMenu;
+             Press1 --= toMenu;
+             Press2 --= toMenu;
+             Press3 --= toMenu;
+             return;
+         }
+         
+         thisbox.start ++= function(v) {
+             cascade = v;
+             if (v) {
+                 KeyPressed ++= toMenu;
+                 Press1 ++= toMenu;
+                 Press2 ++= toMenu;
+                 Press3 ++= toMenu;
+             }
+         }
          
     </screen>
 </vexi>

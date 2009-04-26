@@ -6,29 +6,33 @@
         thisbox.finished;
         thisbox.fadelist;
         thisbox.fadefrom = 0;
+        thisbox.next;
+        
+        var nextReady = function(v) {
+            cascade = v;
+            display = false;
+            next.display = true;
+            trapee[trapname] --= callee;
+            next = null;
+        }
         
         var fadeOut = function(v) {
-            cascade = v;
             var n = fadelist.numchildren;
             for (var i=fadefrom; n>i; i++)
-                fadelist[i].fade = true;
-            fadelist[fadefrom].finished ++= function(v) { finished = true; return; }
-            surface.KeyPressed --= callee;
-            Press1 --= callee;
-            Press2 --= callee;
-            Press3 --= callee;
+                fadelist[i].fadeout = true;
+            fadelist[fadefrom].finished ++= nextReady;
+            fadelist[fadefrom].finished --= callee;
+            return;
         }
         
         thisbox.start ++= function(v) {
             var n = fadelist.numchildren;
             for (var i=fadefrom; n>i; i++)
-                fadelist[i].fade = true;
-            surface.KeyPressed ++= fadeOut;
-            Press1 ++= fadeOut;
-            Press2 ++= fadeOut;
-            Press3 ++= fadeOut;
+                fadelist[i].fadein = true;
             return;
         }
+        
+        thisbox.next ++= function(v) { cascade = v; fadeOut(); }
         
         thisbox.display ++= function(v) { cascade = v; if (v) start = true; }
         
