@@ -15,9 +15,8 @@
         <game id="game" display="false" />
         
         thisbox.current ++= function(v) {
-            if (current) current.display = false;
+            if (current) current.next = v;
             cascade = v;
-            if (current) current.display = true;
         }
         
         surface.scheduler = vgl.scheduler({});
@@ -31,9 +30,6 @@
             case "Game":
                 current = $game;
                 break;
-            case "Pause":
-                current = $menu;
-                break;
             case "Quit":
                 surface.frame.Close = true;
                 break;
@@ -45,6 +41,7 @@
         vexi.ui.frame = thisbox;
         
         current = $about;
+        current.start = true;
         
     </ui:box>
 </vexi>
