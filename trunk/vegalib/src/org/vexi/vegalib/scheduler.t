@@ -7,34 +7,34 @@
     </meta:doc>
     
     <js:object>
-	    
-	    var updates = [];
-	    var ulength = 0;
-	    var maxrate = 40;
-	    
-	    thisobj.fps = 0;
-	    
-	    /** tell the call thread to limit itself to the given fps */
-	    thisobj.limitFPS = function(fps) {
-	        maxrate = arguments.length and (fps>1) ? 1000/fps : 0;
-	    }
-	    
-	    /**
-	     * adds an object to the call list
-	     *
-	     * @param o (object)
-	     *  should have a function 'call' that returns true
-	     *  if it has finished or false if not yet finished
-	     */
-	    thisobj.add = function(o) { updates[ulength++] = o; }
-	    
-	    var go = false;
-	    var tip = false;
-	    var time = vexi.date().getTime();
-	    var dtime;
-	    var gotime;
-	    var fpstime;
-	    var fpscount;
+        
+        var updates = [];
+        var ulength = 0;
+        var maxrate = 40;
+        
+        thisobj.fps = 0;
+        
+        /** tell the call thread to limit itself to the given fps */
+        thisobj.limitFPS = function(fps) {
+            maxrate = arguments.length and (fps>1) ? 1000/fps : 0;
+        }
+        
+        /**
+         * adds an object to the call list
+         *
+         * @param o (object)
+         *  should have a function 'call' that returns true
+         *  if it has finished or false if not yet finished
+         */
+        thisobj.add = function(o) { updates[ulength++] = o; }
+        
+        var go = false;
+        var tip = false;
+        var time = vexi.date().getTime();
+        var dtime;
+        var gotime;
+        var fpstime;
+        var fpscount;
         
         /** clears all scheduled objects from the current thread */
         thisobj.clear = function() {
@@ -49,21 +49,21 @@
         
         /** shorthand for add then start */
         thisobj.run = function(o) { add(o); start(); }
-	    
-	    /** start the call thread
-	     *
-	     * @param runempty
-	     *  if true, the call thread will continue when empty 
-	     */
-	    thisobj.start = function(runempty) {
-	        if (tip) return;
+        
+        /** start the call thread
+         *
+         * @param runempty
+         *  if true, the call thread will continue when empty 
+         */
+        thisobj.start = function(runempty) {
+            if (tip) return;
             go = true;
-	        tip = true;
-	        time = vexi.date().getTime();
-	        dtime = 0;
-	        gotime = 0;
-	        fpstime = 0;
-	        fpscount = 0;
+            tip = true;
+            time = vexi.date().getTime();
+            dtime = 0;
+            gotime = 0;
+            fpstime = 0;
+            fpscount = 0;
             vexi.thread = function() {
                 while (go) {
                     dtime = vexi.date().getTime() - time;
@@ -78,7 +78,15 @@
                     var drop = 0;
                     for (var i=0; ulength>i; i++) {
                         var o = updates[i];
-                        if (o.call(gotime, dtime)) {
+                        var remove = false;
+                        try {
+                            remove = o.call(gotime, dtime);
+                        } catch(e) {
+                            vexi.log.info(e);
+                            // drop erroring calls
+                            remove = true;
+                        }
+                        if (remove) {
                             drop++;
                         } else {
                             // o is still valid but invalid
@@ -86,10 +94,10 @@
                             if (drop) updates[i-drop] = o;
                         }
                     }
-                    if (drop) {
-                        // updates length has reduced
+                    // if updates length has reduced
+                    // clean up duplicate references
+                    if (drop>0) {
                         ulength -= drop;
-                        // clean up duplicate references
                         updates.splice(ulength, drop);
                     }
                     if (ulength==0 and !runempty) go = false;
@@ -101,7 +109,7 @@
                 }
                 tip = false;
             }
-	    }
+        }
         
         /** stops the call thread cold */
         thisobj.stop = function() {
