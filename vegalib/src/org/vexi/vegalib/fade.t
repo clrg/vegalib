@@ -48,14 +48,11 @@
             var a = alphastate.toString(16);
             var f = '#'+ (a.length>1?'':'0') + a + fillbase;
             $overlay.fill = f;
-            try {
-                if (finished) {
-                    isfading = false;
-                    thisbox.finished = true;
-                }
-            } finally {
-                return finished;
+            if (finished) {
+                isfading = false;
+                thisbox.finished = true;
             }
+            return finished;
         }
         
         /** function to fade in then out with a gap period of 'ms' milliseconds */
