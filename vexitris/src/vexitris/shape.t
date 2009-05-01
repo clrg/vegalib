@@ -27,13 +27,13 @@
         
         // list of block colors
         var colors = [
-            "#bc0000", // blood red
-            "#fff800", // bright yellow
             "#e88900", // dull orange
             "#00ade8", // light blue
-            "#4274f9", // mauve blue
             "#8f42f9", // purple
+            "#bc0000", // blood red
+            "#fff800", // bright yellow
             "#008729"  // leaf green
+            "#4274f9", // mauve blue
         ];
         
         // shape definitions

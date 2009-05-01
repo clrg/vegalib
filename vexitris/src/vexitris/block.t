@@ -34,6 +34,8 @@
         fill ++= function(v) { $shapefill.fill = v; return; }
         thisbox ++= static.thisboxNull;
         
+        if (arguments[0]) $shapefill.fill = arguments[0];
+        
     </ui:box>
     
     var blockCount = 0;
