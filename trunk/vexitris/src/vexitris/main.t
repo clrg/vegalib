@@ -9,10 +9,10 @@
     </meta:doc>
     
     <wi:surface />
-    <ui:box fill="black">
-        <about id="about" />
-        <menu id="menu" display="false" />
-        <game id="game" display="false" />
+    <ui:box fill="black" frametitle="Vexitris">
+        <about id="about" name="About" />
+        <menu id="menu" name="Menu" display="false" />
+        <game id="game" name="Game" display="false" />
         
         thisbox.current ++= function(v) {
             if (current) current.next = v;

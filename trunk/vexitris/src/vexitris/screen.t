@@ -17,7 +17,8 @@
         }
         
         var fadeOut = function(v) {
-            var n = fadelist.numchildren;
+            if (fadelist==null) return;
+            var n = typeof(fadelist)=="array" ? fadelist.length : fadelist.numchildren;
             for (var i=fadefrom; n>i; i++)
                 fadelist[i].fadeout = true;
             fadelist[fadefrom].finished ++= nextReady;
@@ -26,7 +27,8 @@
         }
         
         thisbox.start ++= function(v) {
-            var n = fadelist.numchildren;
+            if (fadelist==null) return;
+            var n = typeof(fadelist)=="array" ? fadelist.length : fadelist.numchildren;
             for (var i=fadefrom; n>i; i++)
                 fadelist[i].fadein = true;
             return;
