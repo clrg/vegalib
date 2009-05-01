@@ -5,3 +5,8 @@ Vexitris aims to be a fun tetris implementation with a bit of individual charact
 = Videos =
 
  * [http://vimeo.com/3796249 Drop effect test]
+ * [http://vimeo.com/3971977 Zoom effect test]
+
+= Links =
+
+ * [http://n2.nabble.com/Vexitris-Development-td2751067.html Development thread] with screenshots + embedded videos
