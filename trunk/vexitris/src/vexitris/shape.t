@@ -32,8 +32,8 @@
             "#8f42f9", // purple
             "#bc0000", // blood red
             "#fff800", // bright yellow
-            "#008729"  // leaf green
-            "#4274f9", // mauve blue
+            "#008729", // leaf green
+            "#4274f9"  // mauve blue
         ];
         
         // shape definitions

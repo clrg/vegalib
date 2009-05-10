@@ -9,14 +9,16 @@
     </meta:doc>
     
     <wi:surface />
-    <ui:box fill="black" frametitle="Vexitris">
+    <ui:box align="topleft" fill="black" frametitle="Vexitris" layout="layer">
         <about id="about" name="About" />
         <menu id="menu" name="Menu" display="false" />
         <game id="game" name="Game" display="false" />
+        <alien />
         
         thisbox.current ++= function(v) {
             if (current) current.next = v;
             cascade = v;
+            if (v) surface.facebox = v.facebox;
         }
         
         surface.scheduler = vgl.scheduler({});
