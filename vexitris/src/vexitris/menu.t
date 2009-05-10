@@ -9,7 +9,7 @@
         <ui:box>
             <ui:box />
             <ui:box>
-                <ui:box fill=":.image.alien.aaah" shrink="true" />
+                <ui:box id="alien" />
             </ui:box>
             <ui:box id="menulinks" orient="vertical">
                 <ui:box />
@@ -22,6 +22,7 @@
         </ui:box>
         <ui:box height="50" />
         
+        alignbox = $alien;
         fadelist = $menulinks;
         fadefrom = 1;
         
@@ -33,6 +34,7 @@
         start ++= function(v) {
             cascade = v;
             $zoom.zoom = true;
+            surface.face = "aaah";
         }
         
     </screen>

@@ -6,7 +6,7 @@
         </ui:box>
         <ui:box>
             <ui:box>
-                <ui:box fill=":.image.alien.aaah" shrink="true" />
+                <ui:box id="alien" />
             </ui:box>
             <ui:box align="top" hshrink="true" layout="layer">
                 <zoomeffect id="zoom">
@@ -22,7 +22,7 @@
                     thisbox[0] = b;
                 </zoomeffect>
                 // gameboard
-                thisbox[1] = .board(vexi.box, [10, 20]);
+                <gameboard id="game" />
             </ui:box>
             <ui:box orient="vertical">
                 <ui:box />
@@ -34,38 +34,21 @@
                 <ui:box />
                 <vtext id="history" text="Piece History" textcolor="#aaaaaa" />
                 <ui:box height="10" />
-                <ui:box vshrink="true">
+                <ui:box>
+                    <ui:box width="10" />
                     <ui:box />
-                    <ui:box>
+                    <ui:box align="left" orient="vertical">
                         <vtext id="piece1" text="0" textcolor="#e88900" />
-                    </ui:box>
-                    <ui:box />
-                    <ui:box>
                         <vtext id="piece2" text="0" textcolor="#00ade8" />
-                    </ui:box>
-                    <ui:box />
-                </ui:box>
-                <ui:box height="10" />
-                <ui:box vshrink="true">
-                    <ui:box>
                         <vtext id="piece3" text="0" textcolor="#8f42f9" />
-                    </ui:box>
-                    <ui:box>
                         <vtext id="piece4" text="0" textcolor="#bc0000" />
                     </ui:box>
-                    <ui:box>
+                    <ui:box />
+                    <ui:box align="left" orient="vertical">
                         <vtext id="piece5" text="0" textcolor="#fff800" />
-                    </ui:box>
-                </ui:box>
-                <ui:box height="10" />
-                <ui:box vshrink="true">
-                    <ui:box />
-                    <ui:box>
                         <vtext id="piece6" text="0" textcolor="#008729" />
-                    </ui:box>
-                    <ui:box />
-                    <ui:box>
                         <vtext id="piece7" text="0" textcolor="#4274f9" />
+                        <vtext id="ptotal" text="0" textcolor="#aaaaaa" />
                     </ui:box>
                     <ui:box />
                 </ui:box>
@@ -77,8 +60,9 @@
             <vtext id="build" text="Build my world..." />
         </ui:box>
         
+        alienbox = $alien;
         fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$build,
-                    $piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
+                    $piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7,$ptotal];
         
         next ++= function(v) {
             cascade = v;
