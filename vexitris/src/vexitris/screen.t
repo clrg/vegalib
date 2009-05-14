@@ -3,6 +3,7 @@
 <vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexitris">
     <ui:box>
         
+        thisbox.alienbox;
         thisbox.finished;
         thisbox.fadelist;
         thisbox.fadefrom = 0;
