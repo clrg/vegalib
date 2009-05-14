@@ -15,22 +15,24 @@
             if (a==null) return false;
             if (thisbox[0]) thisbox[0] = null;
             thisbox[0] = a;
-            width = a.width;
-            height = a.height;
             return true;
         }
         
         var imageLoaded = function(v) {
             cascade = v;
-            vexi.trace("imageLoaded: "+trapname+", "+v);
             if (v>0) {
                 cache[trapee.name] = trapee;
                 assignAlien(trapee.name);
             }
         }
         
+        var ttime;
+        var moveto;
+        var target;
+        var running;
+        var from_x, from_y;
+        
         thisbox.face ++= function(v) {
-            vexi.trace("face: "+v);
             if (v==face) return;
             cascade = v;
             if (!assignAlien(v)) {
@@ -42,13 +44,7 @@
             }
         }
         
-        var ttime;
-        var target;
-        var running;
-        var from_x, from_y;
-        
         thisbox.call = function(gotime, dtime) {
-        vexi.trace("calling alien");
             ttime += dtime;
             if (ttime>=1000) {
                 thisbox.x = target.x;
@@ -57,10 +53,17 @@
                 return true;
             }
             var dt = ttime/1000;
-            thisbox.x = dt * (target.x-from_x);
-            thisbox.y = dt * (target.y-from_y);
+            thisbox.x = from_x + dt * (target.x-from_x);
+            thisbox.y = from_y + dt * (target.y-from_y);
             return false;
         }
+        
+        var forwardDimensions = function(v) {
+            cascade = v;
+            if (moveto) moveto[trapname] = v;
+        }
+        thisbox.width ++= forwardDimensions;
+        thisbox.height ++= forwardDimensions;
         
         thisbox.surface ++= function(v) {
             cascade = v;
@@ -68,7 +71,7 @@
                 v.face ++= function(v) { cascade = v; face = v; }
                 v.facebox ++= function(v) {
                     var f = trapee.facebox;
-                    target = v;
+                    moveto = v;
                     cascade = v;
                     if (!running) {
                         running = true;
@@ -80,6 +83,8 @@
                         target = { x:from_x, y:surface.frame.height };
                     } else {
                         target = surface.frame.distanceto(v);
+                        v.width = width;
+                        v.height = height;
                     }
                     if (f==null) {
                         from_x = target.x;

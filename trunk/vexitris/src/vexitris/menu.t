@@ -22,7 +22,7 @@
         </ui:box>
         <ui:box height="50" />
         
-        alignbox = $alien;
+        alienbox = $alien;
         fadelist = $menulinks;
         fadefrom = 1;
         
