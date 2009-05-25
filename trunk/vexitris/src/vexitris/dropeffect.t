@@ -4,11 +4,11 @@
     <meta:doc>
         <author>Charles Goodwin</author>
         <notes>
-            Drops a give item off the screen.
+            Drops a given item off the screen.
         </notes>
     </meta:doc>
     
-    <ui:box align="topleft" layout="place">
+    <ui:box align="topleft" layout="layer">
         
         // optimized lookup of height
         var h = 0;
@@ -84,6 +84,11 @@
             }
             // finished when there are no more blocks left
             return num==0;
+        }
+        
+        surface ++= function(v) {
+            cascade = v;
+            if (v) v.attach = attach;
         }
         
     </ui:box>

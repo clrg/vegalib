@@ -28,6 +28,8 @@
         }
         
         thisbox.start ++= function(v) {
+            thisbox.forcereflow();
+            surface.facebox = alienbox;
             if (fadelist==null) return;
             var n = typeof(fadelist)=="array" ? fadelist.length : fadelist.numchildren;
             for (var i=fadefrom; n>i; i++)

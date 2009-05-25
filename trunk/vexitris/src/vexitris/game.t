@@ -61,17 +61,56 @@
         </ui:box>
         
         alienbox = $alien;
-        fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$build,
-                    $piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7,$ptotal];
+        fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$ptotal,
+                    $piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
         
         next ++= function(v) {
             cascade = v;
             $zoom.zoom = true;
         }
         
+        var playGame = function(v) {
+            switch(v) {
+            case "left":
+                $gameboard.moveLeft($shape);
+                break;
+            case "right":
+                $gameboard.moveRight($shape);
+                break;
+            case "down":
+                $gameboard.moveDown($shape);
+                break;
+            case "up":
+            case " ":
+                $gameboard.place($shape);
+            case "a":
+                $shape.rotateCCW();
+                break;
+            case "s":
+                $shape.rotateCW();
+                break;
+            case "p":
+            case "P":
+            case "pause":
+                surface.face = "sleepy";
+                break;
+            }
+        }
+        
+        var startGame = function(v) {
+            $build.fadeout = true;
+            $gameboard.startgame();
+            _KeyPressed --= callee;
+            _KeyPressed ++= playGame;
+            return;
+        }
+        
         start ++= function(v) {
             cascade = v;
             $zoom.zoom = true;
+            $build.fadein = true;
+            _KeyPressed --= playGame;
+            _KeyPressed ++= startGame;
         }
         
     </screen>
