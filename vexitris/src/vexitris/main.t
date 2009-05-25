@@ -10,17 +10,17 @@
     
     <wi:surface />
     <ui:box fill="black" frametitle="Vexitris">
-        <ui:box align="topleft" layout="layer">
+        <dropeffect> // layout="layer"
             <about id="about" name="About" />
             <menu id="menu" name="Menu" display="false" />
             <game id="game" name="Game" display="false" />
             <alien />
-        </ui:box>
+        </dropeffect>
         
         thisbox.current ++= function(v) {
             if (current) current.next = v;
             cascade = v;
-            surface.facebox = v ? v.alienbox : null;
+            if (v==null) surface.facebox = null;
         }
         
         surface.scheduler = vgl.scheduler({});
