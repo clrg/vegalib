@@ -49,6 +49,9 @@
             cascade = v;
         };
         
+        /** redirect event properties for access */
+        .util.redirect..addRedirect(event, thisbox, "_Release1");
+        
         /** redirect frame properties for access */
         .util.redirect..addRedirect(frame, thisbox,
             "framewidth", "frameheight", "frameicon", "frametitle",
