@@ -1,6 +1,6 @@
 <!-- Copyright 2009 - MIT License -->
 
-<vexi xmlns:ui="vexi://ui" xmlns="pacman">
+<vexi xmlns:ui="vexi://ui" xmlns="vacman">
     <ui:box>
         <ui:box id="map" orient="vertical" shrink="true" />
         
