@@ -1,6 +1,6 @@
 <!-- Copyright 2009 - MIT License -->
 
-<vexi xmlns:ui="vexi://ui" xmlns="pacman">
+<vexi xmlns:ui="vexi://ui" xmlns="vacman">
     <ui:box redirect=":$content" align="topleft" layout="place" width="32" height="32">
         <ui:box id="tile" />
         <ui:box id="content" />
