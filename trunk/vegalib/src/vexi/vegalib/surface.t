@@ -1,4 +1,4 @@
-<!-- Copyright 2008 - see COPYING for details [LGPL] -->
+<!-- Copyright 2009 - MIT License -->
 
 <vexi xmlns:meta="vexi://meta" xmlns="org.vexi.vegalib">
     <meta:doc>

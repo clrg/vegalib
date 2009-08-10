@@ -1,7 +1,7 @@
 <!-- Copyright 2009 - MIT License -->
 
-<vexi xmlns:ui="vexi://ui">
-    <js:object>
+<vexi xmlns:js="vexi://js">
+    <js:Object>
         
         var mref;
         var size;
@@ -42,7 +42,7 @@
             matrix = m;
         }
         
-    </js:object>
+    </js:Object>
     
     static.cache = { rotation:{} };
     

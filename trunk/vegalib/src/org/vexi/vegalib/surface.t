@@ -15,8 +15,10 @@
         thisbox.surface ++= function() { return s; };
         
         var event = {
+            // clickable requires these two functions
             addMoveTrap:function(v) { thisbox._Move ++= v; },
             delMoveTrap:function(v) { thisbox._Move --= v; },
+            // an opt-in alternative to event forwarding 
             addEventTrap:function(e, t) { thisbox[e] ++= v; },
             delEventTrap:function(e, t) { thisbox[e] --= v; }
         };
