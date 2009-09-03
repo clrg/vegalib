@@ -1,6 +1,6 @@
 <!-- Copyright 2009 - see COPYING for details [GPL] -->
 
-<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="org.vexi.vegalib"
+<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="org.vexi.vegalib.effect"
     xmlns:vtfont="vexitris.font">
     <meta:doc>
         <author>Charles Goodwin</author>
