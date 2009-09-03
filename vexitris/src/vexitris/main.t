@@ -23,7 +23,7 @@
             if (v==null) surface.facebox = null;
         }
         
-        surface.scheduler = vgl.scheduler({});
+        surface.scheduler = new vgl.scheduler();
         
         surface.state ++= function(v) {
             cascade = v;

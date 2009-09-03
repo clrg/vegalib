@@ -3,7 +3,7 @@
 <vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexitris.image">
     <ui:box redirect=":$content" shrink="true">
         <!-- precache is required because an unassigned box will never
-          be "constrained" by reflow, so a "off-screen" holder trick is
+          be "constrained" by reflow, so an off-screen holder trick is
           used to invoke constraining of images to get their dimensions -->
         <ui:box id="precache" width="0" height="0" />
         <ui:box id="content" />

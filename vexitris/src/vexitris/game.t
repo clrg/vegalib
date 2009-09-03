@@ -9,19 +9,7 @@
                 <ui:box id="alien" />
             </ui:box>
             <ui:box align="top" hshrink="true" layout="layer">
-                <zoomeffect id="zoom">
-                    var args = ["#5E2605"];
-                    // backboard
-                    var b = .board(vexi.box, [12, 21]);
-                    for (var i=0; 20>i; i++)
-                        b[0][i][0] = .block(vexi.box, args);
-                    for (var i=0; 20>i; i++)
-                        b[11][i][0] = .block(vexi.box, args);
-                    for (var i=0; 12>i; i++)
-                        b[i][20][0] = .block(vexi.box, args);
-                    thisbox[0] = b;
-                </zoomeffect>
-                // gameboard
+                <backboard id="backboard" />
                 <gameboard id="game" />
             </ui:box>
             <ui:box orient="vertical">
@@ -66,7 +54,7 @@
         
         next ++= function(v) {
             cascade = v;
-            $zoom.zoom = true;
+            $backboard.zoom = true;
         }
         
         var playGame = function(v) {
@@ -107,7 +95,7 @@
         
         start ++= function(v) {
             cascade = v;
-            $zoom.zoom = true;
+            $backboard.zoom = true;
             $build.fadein = true;
             _KeyPressed --= playGame;
             _KeyPressed ++= startGame;
