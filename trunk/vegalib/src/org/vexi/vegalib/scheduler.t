@@ -13,14 +13,14 @@
         var maxrate = 40;
         
         thisobj.fps = 0;
+        thisobj.runempty = false;
         
         /** tell the call thread to limit itself to the given fps */
         thisobj.limitFPS = function(fps) {
             maxrate = arguments.length and (fps>1) ? 1000/fps : 0;
         }
         
-        /**
-         * adds an object to the call list
+        /** adds an object to the call list
          *
          * @param o (object)
          *  should have a function 'call' that returns true
@@ -28,13 +28,13 @@
          */
         thisobj.add = function(o) { updates[ulength++] = o; }
         
-        var go = false;
-        var tip = false;
+        var go = false;   // current requested active state
+        var tip = false;  // acronym for 'thread in progress'
         var time = vexi.date().getTime();
-        var dtime;
-        var gotime;
-        var fpstime;
-        var fpscount;
+        var dtime;        // difference in time since last loop
+        var gotime;       // total time spent in active state
+        var fpstime;      // time since last fps count
+        var fpscount;     // for counting fps
         
         /** clears all scheduled objects from the current thread */
         thisobj.clear = function() {
@@ -55,7 +55,7 @@
          * @param runempty
          *  if true, the call thread will continue when empty 
          */
-        thisobj.start = function(runempty) {
+        thisobj.start = function() {
             if (tip) return;
             go = true;
             tip = true;
@@ -74,7 +74,9 @@
                         fps = fpscount;
                         fpscount = 0;
                         fpstime -= 1000;
-                    } else fpscount++;
+                    } else {
+                        fpscount++;
+                    }
                     var drop = 0;
                     for (var i=0; ulength>i; i++) {
                         var o = updates[i];
@@ -100,8 +102,10 @@
                         ulength -= drop;
                         updates.splice(ulength, drop);
                     }
-                    if (ulength==0 and !runempty) go = false;
-                    else {
+                    if (ulength==0 and !runempty) {
+                        // nothing left to run
+                        go = false;
+                    } else {
                         // attempt to sleep so that we are run after
                         // maxrate ms - accounting for any rendering
                         if (maxrate>dtime) vexi.thread.sleep(maxrate-dtime);

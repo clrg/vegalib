@@ -1,19 +1,20 @@
 <!-- Copyright 2008 - see COPYING for details [LGPL] -->
 
-<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta">
+<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="org.vexi.lib.layout">
     <meta:doc>
         <author>Charles Goodwin</author>
         <todo>
-            support fade skipping using 'showContents' or something similar
+            Support fade skipping using 'showContents' or something similar
         </todo>
     </meta:doc>
     
-    <vexi.util.redirect />
     <ui:box redirect=":$content" layout="layer">
         <ui:box id="content" />
         <ui:box id="overlay" fill="black" />
         
-        addRedirect(thisbox, $content, "font", "fontsize", "text", "textcolor");
+        v_content = $content;
+        v_textbox = $content;
+        v_overlay = $overlay;
         
         var time = 0;
         var fadein = false;
@@ -72,4 +73,5 @@
         thisbox.fadeout ++= function(v) { if (fadein) fade = true; return; }
         
     </ui:box>
+    <container />
 </vexi>
