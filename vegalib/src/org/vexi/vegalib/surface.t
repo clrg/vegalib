@@ -3,7 +3,7 @@
 <vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexi">
     <meta:doc>
         <author>Charles Goodwin</author>
-        <desc></desc>
+        <notes>See vexi.vegalib for usage details</notes>
     </meta:doc>
     
     <ui:box>
@@ -88,13 +88,15 @@
         if (themestr != null) {
             var sub = themestr.split('.');
             var res = vexi[""];
-            for (var i=0; sub.length>i; i++)
+            for (var i=0; sub.length>i; i++) {
                 res = res[sub[i]];
+            }
             themeres = res;
         }
         if (themeres == null) {
-            if (.conf.theme[""]!=null)
+            if (.conf.theme[""]!=null) {
                 themeres = .conf.theme..location;
+            }
         }
         var ret = themeres != null ? themeres : vexi..org.vexi.theme.classic;
         var str = (""+ret);

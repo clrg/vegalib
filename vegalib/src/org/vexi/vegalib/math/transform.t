@@ -1,6 +1,11 @@
 <!-- Copyright 2009 - MIT License -->
 
 <vexi xmlns:js="vexi://js">
+    <meta:doc>
+        <author>Charles Goodwin</author>
+        <notes>See vexi.vegalib.math.* for usage details</notes>
+    </meta:doc>
+    
     <js:Object>
         
         var mref;
