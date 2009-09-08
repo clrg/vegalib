@@ -78,6 +78,9 @@
         
         thisbox.fadecolor ++= function(v) {
             fillbase = vexi.ui.getColor(v).substring(1);
+            if (!isfading and fadein) {
+                thisbox[fadeprop] = '#'+fillbase;
+            }
             return;
         }
         
