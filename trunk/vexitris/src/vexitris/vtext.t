@@ -18,8 +18,8 @@
          /** when an action function is assigned, become an active link */
          thisbox.action ++= function(v) {
              cascade = v;
-             Enter ++= function(v) { cascade = v; textcolor="red"; }
-             Leave ++= function(v) { cascade = v; textcolor="white"; }
+             Enter ++= function(v) { cascade = v; fadecolor="red"; }
+             Leave ++= function(v) { cascade = v; fadecolor="white"; }
              Press1 ++= function(v) { cascade = v; action(); }
          }
          
