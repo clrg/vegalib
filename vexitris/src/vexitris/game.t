@@ -14,29 +14,29 @@
             </ui:box>
             <ui:box orient="vertical">
                 <ui:box />
-                <vtext id="hiscore" text="Hi-Score" textcolor="#aaaaaa" />
+                <vtext id="hiscore" text="Hi-Score" fadecolor="#aaaaaa" />
                 <vtext id="hisctxt" text="0" />
                 <ui:box />
-                <vtext id="score" text="Score" textcolor="#aaaaaa" />
+                <vtext id="score" text="Score" fadecolor="#aaaaaa" />
                 <vtext id="sctxt" text="0" />
                 <ui:box />
-                <vtext id="history" text="Piece History" textcolor="#aaaaaa" />
+                <vtext id="history" text="Piece History" fadecolor="#aaaaaa" />
                 <ui:box height="10" />
                 <ui:box>
                     <ui:box width="10" />
                     <ui:box />
                     <ui:box align="left" orient="vertical">
-                        <vtext id="piece1" text="0" textcolor="#e88900" />
-                        <vtext id="piece2" text="0" textcolor="#00ade8" />
-                        <vtext id="piece3" text="0" textcolor="#8f42f9" />
-                        <vtext id="piece4" text="0" textcolor="#bc0000" />
+                        <vtext id="piece1" text="0" fadecolor="#e88900" />
+                        <vtext id="piece2" text="0" fadecolor="#00ade8" />
+                        <vtext id="piece3" text="0" fadecolor="#8f42f9" />
+                        <vtext id="piece4" text="0" fadecolor="#bc0000" />
                     </ui:box>
                     <ui:box />
                     <ui:box align="left" orient="vertical">
-                        <vtext id="piece5" text="0" textcolor="#fff800" />
-                        <vtext id="piece6" text="0" textcolor="#008729" />
-                        <vtext id="piece7" text="0" textcolor="#4274f9" />
-                        <vtext id="ptotal" text="0" textcolor="#aaaaaa" />
+                        <vtext id="piece5" text="0" fadecolor="#fff800" />
+                        <vtext id="piece6" text="0" fadecolor="#008729" />
+                        <vtext id="piece7" text="0" fadecolor="#4274f9" />
+                        <vtext id="ptotal" text="0" fadecolor="#aaaaaa" />
                     </ui:box>
                     <ui:box />
                 </ui:box>

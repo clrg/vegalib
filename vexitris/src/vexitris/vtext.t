@@ -9,7 +9,7 @@
         </notes>
     </meta:doc>
     
-    <fade fontsize="16" shrink="true" textcolor="white">
+    <fade fadecolor="white" fadetype="textcolor" fontsize="16" shrink="true">
          
          // assign font here as we need the .ttf extension
          // and that cannot be done purely in template xml
