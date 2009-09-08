@@ -8,7 +8,7 @@
         </notes>
     </meta:doc>
     
-    <wi:surface />
+    <vgl:surface />
     <ui:box fill="black" frametitle="Vexitris">
         <dropeffect> // layout="layer"
             <about id="about" name="About" />

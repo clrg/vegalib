@@ -38,6 +38,9 @@
         $b.height = size;
         $b.width = w*subsize;
         
+        thisbox.textcolor ++= function(v) {
+        }
+        
     </pad>
     
     var c = {}; 
