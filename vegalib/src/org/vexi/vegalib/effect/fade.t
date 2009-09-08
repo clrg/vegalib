@@ -8,6 +8,9 @@
         </todo>
     </meta:doc>
     
+    var box = vexi.box;
+    static.getColor = function(c) { box.fill = c; return box.fill; }
+    
     <ui:box redirect=":$content" layout="layer">
         <ui:box id="content" />
         <ui:box id="overlay" fill="black" />
@@ -77,7 +80,7 @@
         }
         
         thisbox.fadecolor ++= function(v) {
-            fillbase = vexi.ui.getColor(v).substring(1);
+            fillbase = static.getColor(v).substring(1);
             if (!isfading and fadein) {
                 thisbox[fadeprop] = '#'+fillbase;
             }
