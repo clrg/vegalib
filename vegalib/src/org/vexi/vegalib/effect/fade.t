@@ -13,15 +13,17 @@
         <ui:box id="overlay" fill="black" />
         
         v_content = $content;
-        v_textbox = $content;
+        v_textbox = null;
         v_overlay = $overlay;
         
-        var time = 0;
-        var fadein = false;
-        var isfading = false;
-        var fillbase = "000000";
         var alphastate = 255;
+        var fadein = false;
+        var fadeprop = null;
+        var fillbase = "000000";
+        var isfading = false;
+        var time = 0;
         
+        thisbox.fadecolor ++= function() { return '#'+fillbase; }
         thisbox.fadeperiod = 2000;
         thisbox.fading ++= function() { return isfading; }
         thisbox.finished = false;
@@ -46,9 +48,15 @@
                     finished = true;
                 }
             }
-            var a = alphastate.toString(16);
-            var f = '#'+ (a.length>1?'':'0') + a + fillbase;
-            $overlay.fill = f;
+            if (useoverlay) {
+                var a = alphastate.toString(16);
+                var f = '#'+ (a.length>1?'':'0') + a + fillbase;
+                $overlay.fill = f;
+            } else {
+                var a = (255-alphastate).toString(16);
+                var f = '#'+ (a.length>1?'':'0') + a + fillbase;
+                thisbox[fadeprop] = f;
+            }
             if (finished) {
                 isfading = false;
                 thisbox.finished = true;
@@ -68,9 +76,47 @@
             return;
         }
         
+        thisbox.fadecolor ++= function(v) {
+            fillbase = vexi.ui.getColor(v).substring(1);
+            return;
+        }
+        
         // conditional fade i.e. only in or only out
         thisbox.fadein ++= function(v) { if (!fadein) fade = true; return; }
         thisbox.fadeout ++= function(v) { if (fadein) fade = true; return; }
+        
+        thisbox.finish ++= function(v) {
+            if (useoverlay) {
+                var f = (fadein?"#ff":"#00")+fillbase;
+                $overlay.fill = f;
+            } else {
+                var f = (fadein?"#00":"#ff")+fillbase;
+                thisbox[fadeprop] = f;
+            }
+            isfading = false;
+            thisbox.finished = true;
+            return;
+        }
+        
+        thisbox.fadetype ++= function(v) {
+            switch (v) {
+            case "textcolor":
+            case "fill":
+                fadeprop = v;
+                useoverlay = false;
+                $overlay.display = false;
+                return;
+            case "overlay":
+                useoverlay = true;
+                $overlay.display = true;
+                return;
+            case null:
+                fadetype = "fill";
+                return;
+            default:
+                throw "invalid fadetype '"+v+"'";
+            }
+        }
         
     </ui:box>
     <container />
