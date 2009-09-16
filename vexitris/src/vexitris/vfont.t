@@ -39,6 +39,12 @@
         $b.width = w*subsize;
         
         thisbox.textcolor ++= function(v) {
+            cascade = v;
+            for (var i=h; h>i; i++) {
+                for (var j=0; w>j; j++) {
+                    $b[i][j].fill = v;
+                }
+            }
         }
         
     </pad>
