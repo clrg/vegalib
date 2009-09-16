@@ -24,13 +24,15 @@
         </ui:box>
         
         var s = vgl.scheduler({});
+        s.limitFPS();
         s.fps ++= function(v) { cascade = v; $fpsdisplay.text = v+" frames per second"; }
         surface.scheduler = s;
         
         Press1 ++= function(v) {
             var blocks = $shape.getBlocks();
-            for (var i=0; blocks.length>i; i++)
+            for (var i=0; blocks.length>i; i++) {
                 $dropeffect.attach(blocks[i]);
+            }
             var s = vexi.math.floor(7 * vexi.math.random());
             var c = vexi.math.floor(7 * vexi.math.random());
             $shape.newShape(s, c);
@@ -43,8 +45,12 @@
         }
         
         KeyPressed ++= function(v) {
-            if (v=="left") $shape.rotateCCW();
-            if (v=="right") $shape.rotateCW();
+            if (v=="left") {
+                $shape.rotateCCW();
+            }
+            if (v=="right") {
+                $shape.rotateCW();
+            }
             cascade = v;
         }
         
