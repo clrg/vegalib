@@ -93,7 +93,9 @@
                         } else {
                             // o is still valid but invalid
                             // objects can be removed
-                            if (drop) updates[i-drop] = o;
+                            if (drop) {
+                                updates[i-drop] = o;
+                            }
                         }
                     }
                     // if updates length has reduced
@@ -108,7 +110,11 @@
                     } else {
                         // attempt to sleep so that we are run after
                         // maxrate ms - accounting for any rendering
-                        if (maxrate>dtime) vexi.thread.sleep(maxrate-dtime);
+                        if (maxrate>dtime) {
+                            vexi.thread.sleep(maxrate-dtime);
+                        } else {
+                            vexi.thread.yield();
+                        }
                     }
                 }
                 tip = false;
