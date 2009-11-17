@@ -12,9 +12,11 @@
         
         var assignAlien = function(v) {
             var a = cache[v];
-            if (a==null) return false;
-            if (thisbox[0]) thisbox[0] = null;
-            thisbox[0] = a;
+            if (a==null) {
+                return false;
+            }
+            thisbox.clear();
+            thisbox.add(a);
             return true;
         }
         
@@ -33,7 +35,9 @@
         var from_x, from_y;
         
         thisbox.face ++= function(v) {
-            if (v==face) return;
+            if (v==face) {
+                return;
+            }
             cascade = v;
             if (!assignAlien(v)) {
                 var b = vexi.box;
@@ -60,7 +64,9 @@
         
         var forwardDimensions = function(v) {
             cascade = v;
-            if (moveto) moveto[trapname] = v;
+            if (moveto) {
+                moveto[trapname] = v;
+            }
         }
         thisbox.width ++= forwardDimensions;
         thisbox.height ++= forwardDimensions;
