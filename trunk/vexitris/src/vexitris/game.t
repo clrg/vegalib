@@ -10,7 +10,7 @@
             </ui:box>
             <ui:box align="top" hshrink="true" layout="layer">
                 <backboard id="backboard" />
-                <gameboard id="game" />
+                <gameboard id="gameboard" />
             </ui:box>
             <ui:box orient="vertical">
                 <ui:box />
@@ -45,12 +45,12 @@
         </ui:box>
         <ui:box orient="vertical" shrink="true">
             <vtext id="helpme" text="Help me!" />
-            <vtext id="build" text="Build my world..." />
+            <vtext id="build" text="Build my world!" />
         </ui:box>
         
         alienbox = $alien;
-        fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$ptotal,
-                    $piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
+        fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$build,
+                    $ptotal,$piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
         
         next ++= function(v) {
             cascade = v;
@@ -60,22 +60,22 @@
         var playGame = function(v) {
             switch(v) {
             case "left":
-                $gameboard.moveLeft($shape);
+                $gameboard.moveLeft();
                 break;
             case "right":
-                $gameboard.moveRight($shape);
+                $gameboard.moveRight();
                 break;
             case "down":
-                $gameboard.moveDown($shape);
+                $gameboard.moveDown();
                 break;
             case "up":
             case " ":
-                $gameboard.place($shape);
+                $gameboard.drop();
             case "a":
-                $shape.rotateCCW();
+                $gameboard.rotateCCW();
                 break;
             case "s":
-                $shape.rotateCW();
+                $gameboard.rotateCW();
                 break;
             case "p":
             case "P":
@@ -86,6 +86,7 @@
         }
         
         var startGame = function(v) {
+            $helpme.fadeout = true;
             $build.fadeout = true;
             $gameboard.startgame();
             _KeyPressed --= callee;
@@ -96,7 +97,6 @@
         start ++= function(v) {
             cascade = v;
             $backboard.zoom = true;
-            $build.fadein = true;
             _KeyPressed --= playGame;
             _KeyPressed ++= startGame;
         }

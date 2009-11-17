@@ -21,58 +21,12 @@
             b.orient = "vertical";
             thisbox[i] = b;
             for (var j=0; 4>j; j++) {
-                b[j] = .space(vexi.box);
+                b[j] = new .space();
             }
         }
         
-        // list of block colors
-        var colors = [
-            "#e88900", // dull orange
-            "#00ade8", // light blue
-            "#8f42f9", // purple
-            "#bc0000", // blood red
-            "#fff800", // bright yellow
-            "#008729", // leaf green
-            "#4274f9"  // mauve blue
-        ];
-        
-        // shape definitions
-        var shapes = [ [0,1,0,0,
-                        0,1,0,0,
-                        0,1,0,0,
-                        0,1,0,0],
-        
-                       [0,1,0,0,
-                        0,1,0,0,
-                        0,1,1,0,
-                        0,0,0,0],
-        
-                       [0,0,1,0,
-                        0,0,1,0,
-                        0,1,1,0,
-                        0,0,0,0],
-        
-                       [0,0,0,0,
-                        0,1,1,0,
-                        0,1,1,0,
-                        0,0,0,0],
-        
-                       [0,1,0,0,
-                        0,1,1,0,
-                        0,0,1,0,
-                        0,0,0,0],
-        
-                       [0,1,0,0,
-                        0,1,1,0,
-                        0,0,1,0,
-                        0,0,0,0],
-        
-                       [0,1,0,0,
-                        0,1,1,0,
-                        0,1,0,0,
-                        0,0,0,0] ];
-        
-        var flog = vexi..vexi.util.log..flog;
+        var colors = static.colors;
+        var shapes = static.shapes;
 	    
 	    /** get blocks returns the current occupying blocks as a list */
 	    var blocklist = [];
@@ -81,7 +35,9 @@
 	        for (var i=0; 4>i; i++) {
 	            for (var j=0; 4>j; j++) {
 	                var b = thisbox[i][j][0];
-	                if (b) blocklist[count++] = b;
+	                if (b) {
+	                    blocklist[count++] = b;
+	                }
 	            }
 	        }
 	        return blocklist;
@@ -89,57 +45,127 @@
 	    
 	    /** create and fill with a new shape of the specified type/color */
 	    var blockinds = [];
-	    thisbox.newShape = function(color, type) {
+	    var blocksize;
+	    thisbox.newShape = function(type) {
 	        var s = shapes[type];
+	        blocksize = vexi.math.sqrt(s.length);
 	        var count = 0;
-            for (var i=0; 4>i; i++) {
-                for (var j=0; 4>j; j++) {
-                    if (s[(4*i)+j]) {
-                        var b = .block..getBlock(colors[color]);
+            for (var i=0; blocksize>i; i++) {
+                for (var j=0; blocksize>j; j++) {
+                    if (s[(blocksize*i)+j]) {
+                        var b = .block..getBlock(colors[type]);
                         thisbox[i][j][0] = b;
-                        blockinds[count] = i+4*j;
+                        blockinds[count] = i+blocksize*j;
                         count++;
                     }
                 }
             }
 	    }
 	    
-        // [  0,  1,  2,  3,     CW [ 12,  8,  4,  0,    CCW [  3,  7, 11, 15,
+        // [  0,  1,  2,  3,  -->CW [ 12,  8,  4,  0, -->CCW [  3,  7, 11, 15,
         //    4,  5,  6,  7,          13,  9,  5,  1,           2,  6, 10, 14,
         //    8,  9, 10, 11,          14, 10,  6,  2,           1,  5,  9, 13,
         //   12, 13, 14, 15  ]        15, 11,  7,  3  ]         0,  4,  8, 12  ]
 	    var clockwise = [ 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 ];
         var countercw = [ 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 ];
+        
+        // [  0,  1,  2,  -->CW [  6,  3,  0, -->CCW [  2,  5,  8,
+        //    3,  4,  5,           7,  4,  1,           1,  4,  7,
+        //    6,  7,  8  ]         8,  5,  2  ]         0,  3,  6  ]
+        var clockwise_3 = [ 6, 3, 0, 7, 4, 1, 8, 5, 2 ];
+        var countercw_3 = [ 2, 5, 8, 1, 4, 7, 0, 3, 6 ];
+        
+        var getBlock = function(ind) {
+            var bx = ind%blocksize;
+            return thisbox[bx][(ind-bx)/blocksize];
+        }
+        
+        var setBlock = function(ind, b) {
+            var bx = ind%blocksize;
+            thisbox[bx][(ind-bx)/blocksize] = b;
+        }
 	    
 	    thisbox.rotateCW = function() {
+            if (blocksize == 2) {
+                // squares don't rotate!
+                return;
+            }
+	        var posref = blocksize==4 ? clockwise : clockwise_3;
             var pos, bx, by, b;
-            for (var i=0; 4>i; i++) {
+            for (var i=0; blocksize>i; i++) {
                 pos = blockinds[i];
-                bx = pos%4;
-                by = (pos-bx)/4;
+                bx = pos%blocksize;
+                by = (pos-bx)/blocksize;
                 b = thisbox[bx][by][0];
-                pos = clockwise[pos];
-                bx = pos%4;
-                by = (pos-bx)/4;
+                pos = posref[pos];
+                bx = pos%blocksize;
+                by = (pos-bx)/blocksize;
                 blockinds[i] = pos;
                 thisbox[bx][by][0] = b;
             }
 	    }
         
         thisbox.rotateCCW = function() {
+            if (blocksize == 2) {
+                // squares don't rotate!
+                return;
+            }
+            var posref = blocksize==4 ? countercw : countercw_3;
             var pos, bx, by, b;
-            for (var i=0; 4>i; i++) {
+            for (var i=0; blocksize>i; i++) {
                 pos = blockinds[i];
-                bx = pos%4;
-                by = (pos-bx)/4;
+                bx = pos%blocksize;
+                by = (pos-bx)/blocksize;
                 b = thisbox[bx][by][0];
-                pos = countercw[pos];
-                bx = pos%4;
-                by = (pos-bx)/4;
+                pos = posref[pos];
+                bx = pos%blocksize;
+                by = (pos-bx)/blocksize;
                 blockinds[i] = pos;
                 thisbox[bx][by][0] = b;
             }
         }
 	    
     </ui:box>
+    
+    // list of block colors
+    static.colors = [
+        "#e88900", // dull orange
+        "#00ade8", // light blue
+        "#8f42f9", // purple
+        "#bc0000", // blood red
+        "#fff800", // bright yellow
+        "#008729", // leaf green
+        "#4274f9"  // mauve blue
+    ];
+    
+    // shape definitions
+    static.shapes =
+         [ [0,1,0,0,
+            0,1,0,0,
+            0,1,0,0,
+            0,1,0,0],
+           
+           [0,1,0,
+            0,1,0,
+            0,1,1],
+           
+           [0,1,0,
+            0,1,0,
+            1,1,0],
+           
+           [1,1,
+            1,1],
+           
+           [1,1,0,
+            0,1,1,
+            0,0,0],
+           
+           [0,1,1,
+            1,1,0,
+            0,0,0],
+           
+           [0,1,0,
+            1,1,1,
+            0,0,0] ];
+    
 </vexi>
