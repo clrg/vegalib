@@ -16,10 +16,8 @@
         <ui:box layout="place">
             <shape id="shape" />
             <dropeffect id="dropeffect" />
-            <ui:box id="fpsdisplay" align="topright" textcolor="white">
-                vexi.ui.fontsize.medium = "16";
-                //vexi.ui.font.defaultstream = .font["slkscr.ttf"];
-                font = .font["slkscr.ttf"];
+            <ui:box align="topright">
+                <vtext id="fpsdisplay" textcolor="white" shrink="true" />
             </ui:box>
         </ui:box>
         
@@ -44,7 +42,7 @@
             cascade = v;
         }
         
-        KeyPressed ++= function(v) {
+        surface.event._KeyPressed ++= function(v) {
             if (v=="left") {
                 $shape.rotateCCW();
             }

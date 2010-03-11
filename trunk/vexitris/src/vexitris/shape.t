@@ -27,6 +27,16 @@
         
         var colors = static.colors;
         var shapes = static.shapes;
+        
+//        var getBlock = function(ind) {
+//            var bx = ind%blocksize;
+//            return thisbox[bx][(ind-bx)/blocksize];
+//        }
+//        
+//        var setBlock = function(ind, b) {
+//            var bx = ind%blocksize;
+//            thisbox[bx][(ind-bx)/blocksize] = b;
+//        }
 	    
 	    /** get blocks returns the current occupying blocks as a list */
 	    var blocklist = [];
@@ -48,7 +58,7 @@
 	    var blocksize;
 	    thisbox.newShape = function(type) {
 	        var s = shapes[type];
-	        blocksize = vexi.math.sqrt(s.length);
+	        blocksize = s.length==4 ? 2 : s.length==9 ? 3 : 4;
 	        var count = 0;
             for (var i=0; blocksize>i; i++) {
                 for (var j=0; blocksize>j; j++) {
@@ -62,66 +72,189 @@
             }
 	    }
 	    
-        // [  0,  1,  2,  3,  -->CW [ 12,  8,  4,  0, -->CCW [  3,  7, 11, 15,
-        //    4,  5,  6,  7,          13,  9,  5,  1,           2,  6, 10, 14,
-        //    8,  9, 10, 11,          14, 10,  6,  2,           1,  5,  9, 13,
-        //   12, 13, 14, 15  ]        15, 11,  7,  3  ]         0,  4,  8, 12  ]
-	    var clockwise = [ 12, 8, 4, 0, 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3 ];
-        var countercw = [ 3, 7, 11, 15, 2, 6, 10, 14, 1, 5, 9, 13, 0, 4, 8, 12 ];
+        // [  0,  1,  2,  3,  -->CW [  c,  8,  4,  0, -->CCW [  3,  7,  b,  f,
+        //    4,  5,  6,  7,           d,  9,  5,  1,           2,  6,  a,  e,
+        //    8,  9,  a,  b,           e,  a,  6,  2,           1,  5,  9,  d,
+        //    c , d,  e,  f  ]         f,  b,  7,  3  ]         0,  4,  8,  c  ]
+        var rotate4 = function(clockwise) {
+            var b0 = thisbox[0][0][0];
+            var b1 = thisbox[0][1][0];
+            var b2 = thisbox[0][2][0];
+            var b3 = thisbox[0][3][0];
+            var b4 = thisbox[1][0][0];
+            var b5 = thisbox[1][1][0];
+            var b6 = thisbox[1][2][0];
+            var b7 = thisbox[1][3][0];
+            var b8 = thisbox[2][0][0];
+            var b9 = thisbox[2][1][0];
+            var ba = thisbox[2][2][0];
+            var bb = thisbox[2][3][0];
+            var bc = thisbox[3][0][0];
+            var bd = thisbox[3][1][0];
+            var be = thisbox[3][2][0];
+            var bf = thisbox[3][3][0];
+            if (clockwise) {
+                if (collide) {
+                    // collision function provided
+                    if (b0 and collide(0, 3) or
+                        b1 and collide(1, 3) or
+                        b2 and collide(2, 3) or
+                        b3 and collide(3, 3) or
+                        b4 and collide(0, 2) or
+                        b5 and collide(1, 2) or
+                        b6 and collide(2, 2) or
+                        b7 and collide(3, 2) or
+                        b8 and collide(0, 1) or
+                        b9 and collide(1, 1) or
+                        ba and collide(2, 1) or
+                        bb and collide(3, 1) or
+                        bc and collide(0, 0) or
+                        bd and collide(1, 0) or
+                        be and collide(2, 0) or
+                        bf and collide(3, 0)) {
+                        // no space to rotate into
+                        return;
+                    }
+                }
+                if (b0) thisbox[0][3][0] = b0;
+                if (b1) thisbox[1][3][0] = b1;
+                if (b2) thisbox[2][3][0] = b2;
+                if (b3) thisbox[3][3][0] = b3;
+                if (b4) thisbox[0][2][0] = b4;
+                if (b5) thisbox[1][2][0] = b5;
+                if (b6) thisbox[2][2][0] = b6;
+                if (b7) thisbox[3][2][0] = b7;
+                if (b8) thisbox[0][1][0] = b8;
+                if (b9) thisbox[1][1][0] = b9;
+                if (ba) thisbox[2][1][0] = ba;
+                if (bb) thisbox[3][1][0] = bb;
+                if (bc) thisbox[0][0][0] = bc;
+                if (bd) thisbox[1][0][0] = bd;
+                if (be) thisbox[2][0][0] = be;
+                if (bf) thisbox[3][0][0] = bf;
+            } else {
+                if (collide) {
+                    // collision function provided
+                    if (b0 and collide(3, 0) or
+                        b1 and collide(2, 0) or
+                        b2 and collide(1, 0) or
+                        b3 and collide(0, 0) or
+                        b4 and collide(3, 1) or
+                        b5 and collide(2, 1) or
+                        b6 and collide(1, 1) or
+                        b7 and collide(0, 1) or
+                        b8 and collide(3, 2) or
+                        b9 and collide(2, 2) or
+                        ba and collide(1, 2) or
+                        bb and collide(0, 2) or
+                        bc and collide(3, 3) or
+                        bd and collide(2, 3) or
+                        be and collide(1, 3) or
+                        bf and collide(0, 3)) {
+                        // no space to rotate into
+                        return;
+                    }
+                }
+                if (b0) thisbox[3][0][0] = b0;
+                if (b1) thisbox[2][0][0] = b1;
+                if (b2) thisbox[1][0][0] = b2;
+                if (b3) thisbox[0][0][0] = b3;
+                if (b4) thisbox[3][1][0] = b4;
+                if (b5) thisbox[2][1][0] = b5;
+                if (b6) thisbox[1][1][0] = b6;
+                if (b7) thisbox[0][1][0] = b7;
+                if (b8) thisbox[3][2][0] = b8;
+                if (b9) thisbox[2][2][0] = b9;
+                if (ba) thisbox[1][2][0] = ba;
+                if (bb) thisbox[0][2][0] = bb;
+                if (bc) thisbox[3][3][0] = bc;
+                if (bd) thisbox[2][3][0] = bd;
+                if (be) thisbox[1][3][0] = be;
+                if (bf) thisbox[0][3][0] = bf;
+            }
+        }
         
         // [  0,  1,  2,  -->CW [  6,  3,  0, -->CCW [  2,  5,  8,
         //    3,  4,  5,           7,  4,  1,           1,  4,  7,
         //    6,  7,  8  ]         8,  5,  2  ]         0,  3,  6  ]
-        var clockwise_3 = [ 6, 3, 0, 7, 4, 1, 8, 5, 2 ];
-        var countercw_3 = [ 2, 5, 8, 1, 4, 7, 0, 3, 6 ];
-        
-        var getBlock = function(ind) {
-            var bx = ind%blocksize;
-            return thisbox[bx][(ind-bx)/blocksize];
-        }
-        
-        var setBlock = function(ind, b) {
-            var bx = ind%blocksize;
-            thisbox[bx][(ind-bx)/blocksize] = b;
+        var rotate3 = function(clockwise, collide) {
+            var b0 = thisbox[0][0][0];
+            var b1 = thisbox[0][1][0];
+            var b2 = thisbox[0][2][0];
+            var b3 = thisbox[1][0][0];
+          //var b4 = thisbox[1][1][0];
+            var b5 = thisbox[1][2][0];
+            var b6 = thisbox[2][0][0];
+            var b7 = thisbox[2][1][0];
+            var b8 = thisbox[2][2][0];
+            if (clockwise) {
+                if (collide) {
+                    // collision function provided
+                    if (b0 and collide(0, 2) or
+                        b1 and collide(1, 2) or
+                        b2 and collide(2, 2) or
+                        b3 and collide(0, 1) or
+                        b4 and collide(1, 1) or
+                        b5 and collide(2, 1) or
+                        b6 and collide(0, 0) or
+                        b7 and collide(1, 0) or
+                        b8 and collide(2, 0)) {
+                        // no space to rotate into
+                        return;
+                    }
+                }
+                if (b0) thisbox[0][2][0] = b0;
+                if (b1) thisbox[1][2][0] = b1;
+                if (b2) thisbox[2][2][0] = b2;
+                if (b3) thisbox[0][1][0] = b3;
+              //if (b4) thisbox[1][1][0] = b4;
+                if (b5) thisbox[2][1][0] = b5;
+                if (b6) thisbox[0][0][0] = b6;
+                if (b7) thisbox[1][0][0] = b7;
+                if (b8) thisbox[2][0][0] = b8;
+            } else {
+                if (collide) {
+                    // collision function provided
+                    if (b0 and collide(2, 0) or
+                        b1 and collide(1, 0) or
+                        b2 and collide(0, 0) or
+                        b3 and collide(2, 1) or
+                        b4 and collide(1, 1) or
+                        b5 and collide(0, 1) or
+                        b6 and collide(2, 2) or
+                        b7 and collide(1, 2) or
+                        b8 and collide(0, 2)) {
+                        // no space to rotate into
+                        return;
+                    }
+                }
+                if (b0) thisbox[2][0][0] = b0;
+                if (b1) thisbox[1][0][0] = b1;
+                if (b2) thisbox[0][0][0] = b2;
+                if (b3) thisbox[2][1][0] = b3;
+              //if (b4) thisbox[1][1][0] = b4;
+                if (b5) thisbox[0][1][0] = b5;
+                if (b6) thisbox[2][2][0] = b6;
+                if (b7) thisbox[1][2][0] = b7;
+                if (b8) thisbox[0][2][0] = b8;
+            }
         }
 	    
-	    thisbox.rotateCW = function() {
-            if (blocksize == 2) {
+	    thisbox.rotateCW = function(collide) {
+            switch (blocksize) {
+                case 4: rotate4(true, collide); break;
+                case 3: rotate3(true, collide); break;
                 // squares don't rotate!
-                return;
-            }
-	        var posref = blocksize==4 ? clockwise : clockwise_3;
-            var pos, bx, by, b;
-            for (var i=0; blocksize>i; i++) {
-                pos = blockinds[i];
-                bx = pos%blocksize;
-                by = (pos-bx)/blocksize;
-                b = thisbox[bx][by][0];
-                pos = posref[pos];
-                bx = pos%blocksize;
-                by = (pos-bx)/blocksize;
-                blockinds[i] = pos;
-                thisbox[bx][by][0] = b;
+                case 2: default: break;
             }
 	    }
         
-        thisbox.rotateCCW = function() {
-            if (blocksize == 2) {
+        thisbox.rotateCCW = function(collide) {
+            switch (blocksize) {
+                case 4: rotate4(false, collide); break;
+                case 3: rotate3(false, collide); break;
                 // squares don't rotate!
-                return;
-            }
-            var posref = blocksize==4 ? countercw : countercw_3;
-            var pos, bx, by, b;
-            for (var i=0; blocksize>i; i++) {
-                pos = blockinds[i];
-                bx = pos%blocksize;
-                by = (pos-bx)/blocksize;
-                b = thisbox[bx][by][0];
-                pos = posref[pos];
-                bx = pos%blocksize;
-                by = (pos-bx)/blocksize;
-                blockinds[i] = pos;
-                thisbox[bx][by][0] = b;
+                case 2: default: break;
             }
         }
 	    

@@ -42,6 +42,11 @@
             }
         }
         
+        surface.frame.Close ++= function(v) {
+            surface.scheduler.stop();
+            cascade = v;
+        }
+        
         vexi.ui.frame = thisbox;
         
         current = $about;
