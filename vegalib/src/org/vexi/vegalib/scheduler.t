@@ -40,8 +40,8 @@
         thisobj.clear = function() {
             for (var i=0; ulength>i; i++) {
                 updates[i].over = true;
-                updates = [];
             }
+            updates = [];
         }
         
         /** pause the call thread until start is called again */
