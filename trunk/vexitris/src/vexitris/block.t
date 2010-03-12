@@ -34,7 +34,9 @@
         fill ++= function(v) { $shapefill.fill = v; return; }
         thisbox ++= static.thisboxNull;
         
-        if (arguments[0]) $shapefill.fill = arguments[0];
+        if (arguments[0]) {
+            $shapefill.fill = arguments[0];
+        }
         
     </ui:box>
     
@@ -42,14 +44,16 @@
     var blockCache = [];
     
     static.getBlock = function(fill) {
-        var b = blockCount > 0 ? blockCache[--blockCount] : vexitris.block(vexi.box);
+        var b = blockCount > 0 ? blockCache[--blockCount] : new vexitris.block();
         b.fill = fill;
         return b;
     }
     
     static.thisboxNull = function(v) {
         cascade = v;
-        if (v==null) blockCache[blockCount++] = trapee;
+        if (v==null) {
+            blockCache[blockCount++] = trapee;
+        }
     }
     
 </vexi>

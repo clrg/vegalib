@@ -34,6 +34,9 @@
             case "Game":
                 current = $game;
                 break;
+            case "Credits":
+                current = $about;
+                break;
             case "Quit":
                 surface.frame.Close = true;
                 break;
