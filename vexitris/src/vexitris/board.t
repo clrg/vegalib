@@ -16,10 +16,10 @@
         
         for (var i=0; dimX>i; i++) {
             var b = vexi.box;
-            thisbox[i] = b;
+            thisbox.add(b);
             b.orient = "vertical";
             for (var j=0; dimY>j; j++) {
-                b[j] = .space(vexi.box);
+                b.add(new .space());
             }
         }
         

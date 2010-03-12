@@ -4,7 +4,7 @@
     <zoomeffect>
         var blockcolor = "#5E2605";
         // backboard
-        var b = new .board(12, 21);
+        var b = new .board(12, 22);
         for (var i=0; 20>i; i++) {
             b[0][i][0] = new .block(blockcolor);
         }

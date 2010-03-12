@@ -11,12 +11,11 @@
             <ui:box>
                 <ui:box id="alien" />
             </ui:box>
-            <ui:box id="menulinks" orient="vertical">
-                <ui:box />
+            <ui:box id="menulinks" height="100" orient="vertical">
                 <vtext text="[P]lay" state="Game" />
                 <vtext text="[S]cores" state="Scores" />
+                <vtext text="[C]redits" state="Credits" />
                 <vtext text="[Q]uit" state="Quit" />
-                <ui:box />
             </ui:box>
             <ui:box />
         </ui:box>
@@ -24,7 +23,6 @@
         
         alienbox = $alien;
         fadelist = $menulinks;
-        fadefrom = 1;
         
         next ++= function(v) {
             cascade = v;
