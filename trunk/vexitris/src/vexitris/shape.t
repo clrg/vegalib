@@ -72,11 +72,33 @@
             }
 	    }
 	    
+	    /** pass blocks to function 'place' to move them elsewhere i.e. the gameboard */
+	    thisbox.placeBlocks = function(place) {
+            for (var i,col in thisbox) {
+                for (var j,cell in col) {
+                    if (cell[0]) {
+                        place(cell[0], i, j);
+                    }
+                }
+            }
+	    }
+	    
+	    /** test for collision using function 'collide' in direction specified by dx,dy */
+	    thisbox.testCollision = function(collide, dx, dy) {
+	        for (var i=0; blocksize>i; i++) {
+                for (var j=0; blocksize>j; j++) {
+                    if (thisbox[i][j].numchildren and collide(dx+i, dy+j)) {
+                        return true;
+                    }
+                }
+	        }
+	    }
+	    
         // [  0,  1,  2,  3,  -->CW [  c,  8,  4,  0, -->CCW [  3,  7,  b,  f,
         //    4,  5,  6,  7,           d,  9,  5,  1,           2,  6,  a,  e,
         //    8,  9,  a,  b,           e,  a,  6,  2,           1,  5,  9,  d,
         //    c , d,  e,  f  ]         f,  b,  7,  3  ]         0,  4,  8,  c  ]
-        var rotate4 = function(clockwise) {
+        var rotate4 = function(clockwise, collide) {
             var b0 = thisbox[0][0][0];
             var b1 = thisbox[0][1][0];
             var b2 = thisbox[0][2][0];
