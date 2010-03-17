@@ -8,7 +8,7 @@
             <ui:box>
                 <ui:box id="alien" />
             </ui:box>
-            <ui:box layout="layer" shrink="true" width="280" height="480">
+            <ui:box align="top" layout="layer" shrink="true"> // width="280" height="480">
                 <backboard id="backboard" />
                 <gameboard id="gameboard" />
             </ui:box>
