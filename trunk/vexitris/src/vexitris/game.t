@@ -51,7 +51,7 @@
                 <ui:box />
             </ui:box>
         </ui:box>
-        <ui:box orient="vertical" shrink="true">
+        <ui:box id="gamemsgs" orient="vertical" shrink="true">
             <vtext id="helpme" text="Help me!" />
             <vtext id="build" text="Build my world!" />
             <vtext id="keys1" text="a,s to rotate" />
@@ -78,10 +78,10 @@
             case "down":
                 $gameboard.moveDown();
                 break;
-            case "up":
             case " ":
                 $gameboard.drop();
                 break;
+            case "up":
             case "a":
                 $gameboard.rotateCCW();
                 break;
@@ -96,7 +96,14 @@
             }
         }
         
+        var hideFaders = function(v) {
+            cascade = v;
+            $gamemsgs.display = false;
+            trapee[trapname] --= callee;
+        }
+        
         var startGame = function(v) {
+            $helpme.finished ++= hideFaders;
             $helpme.fadeout = true;
             $build.fadeout = true;
             $keys1.fadeout = true;
@@ -110,6 +117,7 @@
         start ++= function(v) {
             cascade = v;
             $backboard.zoom = true;
+            $gamemsgs.display = true;
             _KeyPressed --= playGame;
             _KeyPressed ++= startGame;
         }
