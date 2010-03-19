@@ -14,7 +14,7 @@
             clear();
             str = v!=null ? v : "";
             for (var i=0; str.length>i; i++) {
-                thisbox[i] = new vtris.vfont(str.charAt(i));
+                thisbox[i] = new vtris.vfont(str.charAt(i), null, textcolor);
             }
         }
         

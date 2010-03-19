@@ -33,17 +33,17 @@
                     <ui:box />
                     <ui:box />
                     <ui:box orient="vertical">
-                        <vtext id="piece1" text="0" textcolor="#e88900" />
-                        <vtext id="piece2" text="0" textcolor="#00ade8" />
-                        <vtext id="piece3" text="0" textcolor="#8f42f9" />
-                        <vtext id="piece4" text="0" textcolor="#bc0000" />
+                        <total id="piece1" textcolor="#e88900" />
+                        <total id="piece2" textcolor="#00ade8" />
+                        <total id="piece3" textcolor="#8f42f9" />
+                        <total id="piece4" textcolor="#bc0000" />
                     </ui:box>
                     <ui:box />
                     <ui:box orient="vertical">
-                        <vtext id="piece5" text="0" textcolor="#fff800" />
-                        <vtext id="piece6" text="0" textcolor="#008729" />
-                        <vtext id="piece7" text="0" textcolor="#4274f9" />
-                        <vtext id="ptotal" text="0" textcolor="#aaaaaa" />
+                        <total id="piece5" textcolor="#fff800" />
+                        <total id="piece6" textcolor="#008729" />
+                        <total id="piece7" textcolor="#4274f9" />
+                        <total id="ptotal" textcolor="#aaaaaa" />
                     </ui:box>
                     <ui:box />
                     <ui:box />
@@ -61,6 +61,26 @@
         alienbox = $alien;
         fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$build,$keys1,$keys2,$nextp,
                     $ptotal,$piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
+        
+        $gameboard.pieceUpdate = function(p) {
+            switch (p) {
+            case 0: $piece1.total++;
+                break;
+            case 1: $piece2.total++;
+                break;
+            case 2: $piece3.total++;
+                break;
+            case 3: $piece4.total++;
+                break;
+            case 4: $piece5.total++;
+                break;
+            case 5: $piece6.total++;
+                break;
+            case 6: $piece7.total++;
+                break;
+            }
+            $ptotal.total++;
+        }
         
         next ++= function(v) {
             cascade = v;
