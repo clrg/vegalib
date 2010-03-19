@@ -19,19 +19,49 @@
             $piece.y = py * 20;
         }
         
+        thisbox.pieceUpdate; // assigned in game.t
+        
         thisbox.newPiece = function() {
             var s = vexi.math.floor(7 * vexi.math.random());
             $piece.newShape(s);
+            pieceUpdate(s);
             setPosX(5);
             setPosY(0);
         }
         
+        var miny, maxy;
+        
         var placeBlock = function(block, ox, oy) {
+            if (miny==null or miny>py+oy) {
+                miny = py+oy;
+            }
+            if (maxy==null or py+oy>maxy) {
+                maxy = py+oy;
+            }
             board[px+ox][py+oy][0] = block;
         }
         
         var placePiece = function() {
+            miny = null;
+            maxy = null;
+            var s = surface;
             $piece.placeBlocks(placeBlock);
+            for (var j=miny; maxy>=j; j++) {
+                var rowgaps = false;
+                for (var i=0; 10>i; i++) {
+                    if (board[i][j].numchildren==0) {
+                        rowgaps = true;
+                        break;
+                    }
+                }
+                if (rowgaps) {
+                    continue;
+                }
+                for (var i=0; 10>i; i++) {
+                    s.attach(board[i][j][0]);
+                    board[i][0] = board[i][j];
+                }
+            }
             newPiece();
         }
         

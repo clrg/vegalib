@@ -10,7 +10,9 @@
         <ui:box id="b" orient="vertical" />
         
         var cstr = arguments[0];
+        var color = arguments[2];
         var size = arguments[1];
+        if (color==null) color = "white";
         if (size==null) size = 12;
         var subsize = size/6;
         
@@ -34,7 +36,7 @@
             for (var j=0; w>j; j++) {
                 var a = vexi.box;
                 if (c[w*i+j]) {
-                    a.fill = "white";
+                    a.fill = color;
                 }
                 b[j] = a;
             }
@@ -48,6 +50,7 @@
         
         thisbox.textcolor ++= function(v) {
             cascade = v;
+            color = v;
             for (var i=0; h>i; i++) {
                 for (var j=0; w>j; j++) {
                     if (c[w*i+j]) {
