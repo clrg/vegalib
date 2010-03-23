@@ -19,14 +19,25 @@
             $piece.y = py * 20;
         }
         
-        thisbox.pieceUpdate; // assigned in game.t
+        /** test to see if a block exists at the requested point */
+        var collide = function(ox, oy) {
+            // left or right
+            if (0>px+ox or px+ox>9) return true;
+            // bottom
+            if (py+oy>=20) return true;
+            // check board square for block
+            return board[px+ox][py+oy].numchildren>0;
+        }
+        
+        thisbox.nextPiece; // assigned in game.t
         
         thisbox.newPiece = function() {
-            var s = vexi.math.floor(7 * vexi.math.random());
-            $piece.newShape(s);
-            pieceUpdate(s);
+            $piece.newShape(nextPiece);
             setPosX(5);
             setPosY(0);
+            if ($piece.testCollision(collide, 0, 0)) {
+                throw "game over";
+            }
         }
         
         var miny, maxy;
@@ -60,19 +71,10 @@
                 for (var i=0; 10>i; i++) {
                     s.attach(board[i][j][0]);
                     board[i][0] = board[i][j];
+                    dropRow = true;
                 }
             }
             newPiece();
-        }
-        
-        /** test to see if a block exists at the requested point */
-        var collide = function(ox, oy) {
-            // left or right
-            if (0>px+ox or px+ox>9) return true;
-            // bottom
-            if (py+oy>=20) return true;
-            // check board square for block
-            return board[px+ox][py+oy].numchildren>0;
         }
         
         thisbox.rotateCW = function() { $piece.rotateCW(collide); }
@@ -105,6 +107,10 @@
         
         var curtime;
         var gamespeed = 1000;
+        thisbox.level ++= function(v) {
+            cascade = v;
+            gamespeed = 1000 - v*50;
+        }
         thisbox.call = function(gotime, dtime) {
             curtime += dtime;
             if (curtime > gamespeed) {

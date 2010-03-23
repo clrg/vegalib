@@ -5,8 +5,16 @@
         <ui:box id="background" align="bottomleft" layout="place">
         </ui:box>
         <ui:box>
-            <ui:box>
+            <ui:box orient="vertical">
+                <ui:box />
+                <ui:box orient="vertical" vshrink="true">
+                    <vtext id="ltext" text="level" textcolor="#aaaaaa" />
+                    <ui:box height="10" />
+                    <vtext id="level" text="0" fontsize="24" />
+                </ui:box>
+                <ui:box />
                 <ui:box id="alien" />
+                <ui:box />
             </ui:box>
             <ui:box align="top" layout="layer" shrink="true"> // width="280" height="480">
                 <backboard id="backboard" />
@@ -25,7 +33,8 @@
                 </ui:box>
                 <ui:box />
                 <vtext id="nextp" text="Next Piece" textcolor="#aaaaaa" />
-                <shape id="foo" />
+                <ui:box height="10" />
+                <shape id="nextpiece" />
                 <ui:box />
                 <vtext id="history" text="Piece History" textcolor="#aaaaaa" />
                 <ui:box height="10" />
@@ -60,9 +69,13 @@
         
         alienbox = $alien;
         fadelist = [$hiscore,$hisctxt,$score,$sctxt,$history,$helpme,$build,$keys1,$keys2,$nextp,
-                    $ptotal,$piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7];
+                    $ptotal,$piece1,$piece2,$piece3,$piece4,$piece5,$piece6,$piece7,$level,$ltext];
         
-        $gameboard.pieceUpdate = function(p) {
+        var nextp = vexi.math.floor(7 * vexi.math.random());
+        $gameboard.nextPiece ++= function() {
+            var p = nextp;
+            nextp = vexi.math.floor(7 * vexi.math.random());
+            $nextpiece.newShape(nextp);
             switch (p) {
             case 0: $piece1.total++;
                 break;
@@ -80,6 +93,18 @@
                 break;
             }
             $ptotal.total++;
+            return p;
+        }
+        
+        var nrows = 0;
+        var level = 0;
+        $gameboard.dropRow +== function(v) {
+            nrows++;
+            if (nrows%10 == 0) {
+                level = nrows/10;
+                $level.text = level;
+                $gameboard.level = level;
+            }
         }
         
         next ++= function(v) {
