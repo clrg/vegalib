@@ -60,13 +60,23 @@
 	        var s = shapes[type];
 	        blocksize = s.length==4 ? 2 : s.length==9 ? 3 : 4;
 	        var count = 0;
-            for (var i=0; blocksize>i; i++) {
-                for (var j=0; blocksize>j; j++) {
-                    if (s[(blocksize*i)+j]) {
-                        var b = .block..getBlock(colors[type]);
-                        thisbox[i][j][0] = b;
+            for (var i=0; 4>i; i++) {
+                for (var j=0; 4>j; j++) {
+                    if (blocksize>i and blocksize>j and s[(blocksize*i)+j]) {
+                        var b = thisbox[i][j][0];
+                        if (b!=null) {
+                            b.fill = colors[type];
+                        } else {
+                            b = .block..getBlock(colors[type]);
+                            thisbox[i][j][0] = b;
+                        }
                         blockinds[count] = i+blocksize*j;
                         count++;
+                    } else {
+                        var b = thisbox[i][j][0];
+                        if (b!=null) {
+                            b.thisbox = null;
+                        }
                     }
                 }
             }

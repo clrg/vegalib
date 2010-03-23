@@ -7,23 +7,25 @@
         <desc>A text element handler</desc>
     </meta:doc>
     
-    <fade fadecolor="black" fadetype="overlay" shrink="true">
+    <fade fadecolor="black" fadetype="overlay" fontsize="12" shrink="true" textcolor="white">
         
         var str;
         thisbox.text ++= function(v) {
             clear();
             str = v!=null ? v : "";
             for (var i=0; str.length>i; i++) {
-                thisbox[i] = new vtris.vfont(str.charAt(i), null, textcolor);
+                thisbox[i] = new vtris.vfont(str.charAt(i), fontsize, textcolor);
             }
         }
         
-        thisbox.textcolor ++= function(v) {
+        var forwardProp = function(v) {
             cascade = v;
             for (var i,vchar in thisbox) {
-                vchar.textcolor = v;
+                vchar[trapname] = v;
             }
         }
+        thisbox.fontsize ++= forwardProp;
+        thisbox.textcolor ++= forwardProp;
         
         /** when an action function is assigned, become an active link */
         thisbox.action ++= function(v) {
