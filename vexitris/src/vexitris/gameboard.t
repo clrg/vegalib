@@ -56,6 +56,7 @@
             miny = null;
             maxy = null;
             var s = surface;
+            var nrows = 0;
             $piece.placeBlocks(placeBlock);
             for (var j=miny; maxy>=j; j++) {
                 var rowgaps = false;
@@ -68,12 +69,13 @@
                 if (rowgaps) {
                     continue;
                 }
+                nrows ++;
                 for (var i=0; 10>i; i++) {
                     s.attach(board[i][j][0]);
                     board[i][0] = board[i][j];
-                    dropRow = true;
                 }
             }
+            completeRows = nrows;
             newPiece();
         }
         
