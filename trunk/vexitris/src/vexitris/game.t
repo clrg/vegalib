@@ -96,14 +96,35 @@
             return p;
         }
         
+        var hiscore = 0;
+        var score = 0;
         var nrows = 0;
         var level = 0;
-        $gameboard.dropRow +== function(v) {
-            nrows++;
-            if (nrows%10 == 0) {
-                level = nrows/10;
+        $gameboard.completeRows ++= function(v) {
+            nrows += v;
+            if (nrows >= 10) {
+                nrows -= 10;
+                level ++;
                 $level.text = level;
                 $gameboard.level = level;
+            }
+            var mod=1;
+            switch (v) {
+            case 1: mod=1; break;
+            case 2: mod=3; break;
+            case 3: mod=6; break;
+            case 4: mod=10; break;
+            }
+            if (v>nrows) {
+                score += mod * (v-nrows) * (level+1);
+                score += mod * nrows * (level+2);
+            } else {
+                score += mod * v * (level+1);
+            }
+            $sctxt.text = score;
+            if (score>hiscore) {
+                hiscore = score;
+                $hisctxt.text = hiscore;
             }
         }
         
