@@ -54,7 +54,7 @@
                         if (v[3]) { $tile.x = 0; $tile.y = -64; } // s,w
                         else { $tile.x = -64; $tile.y = 0; } // s
                     } else {
-                        if (v[3]) { $tile.x = -32; $tile.y = -64; } // w
+                        if (v[3]) { $tile.x = -96; $tile.y = 0; } // w
                         else { $tile.x = 0; $tile.y = 0; } // o
                     }
                 }
