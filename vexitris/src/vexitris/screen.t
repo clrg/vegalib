@@ -18,7 +18,9 @@
         }
         
         var fadeOut = function(v) {
-            if (fadelist==null) return;
+            if (fadelist==null) {
+                return;
+            }
             var n = typeof(fadelist)=="array" ? fadelist.length : fadelist.numchildren;
             for (var i=fadefrom; n>i; i++) {
                 fadelist[i].fadeout = true;
@@ -28,7 +30,11 @@
             return;
         }
         
-        thisbox.start ++= function(v) {
+        thisbox.visible ++= function(v) {
+            cascade = v;
+            if (!v) {
+                return;
+            }
             thisbox.forcereflow();
             surface.facebox = alienbox;
             if (fadelist==null) return;
@@ -36,12 +42,9 @@
             for (var i=fadefrom; n>i; i++) {
                 fadelist[i].fadein = true;
             }
-            return;
         }
         
         thisbox.next ++= function(v) { cascade = v; fadeOut(); }
-        
-        thisbox.display ++= function(v) { cascade = v; if (v) start = true; }
         
     </ui:box>
 </vexi>

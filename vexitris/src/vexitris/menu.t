@@ -29,7 +29,7 @@
             $zoom.zoom = true;
         }
         
-        start ++= function(v) {
+        visible ++= function(v) {
             cascade = v;
             $zoom.zoom = true;
             surface.face = "aaah";
