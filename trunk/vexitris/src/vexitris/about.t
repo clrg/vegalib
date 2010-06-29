@@ -1,6 +1,6 @@
 <!-- Copyright 2009 - see COPYING for details [GPL] -->
 
-<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns="vexitris">
+<vexi xmlns:ui="vexi://ui" xmlns:meta="vexi://meta" xmlns:vgl="vexi.vegalib" xmlns="vexitris">
     <screen>
          <ui:box id="about" orient="vertical" vshrink="true">
              <vtext text="A Charles Goodwin Game" />
@@ -11,6 +11,8 @@
              <ui:box height="20" />
              <vtext text="VeGaLib library" />
              <vtext text="code.google.com/p/vegalib" />
+             <ui:box height="20" />
+             <vgl:effect.fade fadecolor="black" fadetype="overlay" fill=":vgl.thelook" shrink="true" />
          </ui:box>
          
          fadelist = $about;
@@ -24,7 +26,7 @@
              return;
          }
          
-         thisbox.start ++= function(v) {
+         thisbox.visible ++= function(v) {
              cascade = v;
              if (v) {
                  KeyPressed ++= toMenu;

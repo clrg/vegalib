@@ -86,8 +86,10 @@
         thisbox.moveDown = function() {
             if (!$piece.testCollision(collide, 0, 1)) {
                 setPosY(py+1);
+                return true;
             } else {
                 placePiece();
+                return false;
             }
         }
         
@@ -105,29 +107,6 @@
         
         thisbox.drop = function() {
             while (moveDown()) { }
-        }
-        
-        var curtime;
-        var gamespeed = 1000;
-        thisbox.level ++= function(v) {
-            cascade = v;
-            gamespeed = 1000 - v*50;
-        }
-        thisbox.call = function(gotime, dtime) {
-            curtime += dtime;
-            if (curtime > gamespeed) {
-                curtime -= gamespeed;
-                moveDown();
-            }
-        }
-        
-        thisbox.pausegame = function() {
-        }
-        
-        thisbox.startgame = function() {
-            gamespeed = 1000;
-            newPiece();
-            surface.scheduler.run(thisbox);
         }
         
     </ui:box>

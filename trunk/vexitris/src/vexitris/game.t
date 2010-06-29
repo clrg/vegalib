@@ -128,20 +128,69 @@
             }
         }
         
-        next ++= function(v) {
+        var curtime;
+        var gamespeed = 1000;
+        
+        var left, right, down;
+        var clockwise, countercw;
+        
+        thisbox.level ++= function(v) {
             cascade = v;
-            $backboard.zoom = true;
+            gamespeed = 1000 - v*50;
         }
         
-        var playGame = function(v) {
+        thisbox.call = function(gotime, dtime) {
+            curtime += dtime;
+            if (left) {
+                if (lefttime==null) {
+                    lefttime = 0;
+                }
+                lefttime += dtime;
+                while (lefttime > 100) {
+                    lefttime -= 100;
+                    $gameboard.moveLeft();
+                }
+            }
+            if (right) {
+                if (righttime==null) {
+                    righttime = 0;
+                }
+                righttime += dtime;
+                while (righttime > 100) {
+                    righttime -= 100;
+                    $gameboard.moveRight();
+                }
+            }
+            var downspeed = down ? 50 : gamespeed;
+            while (curtime > gamespeed) {
+                curtime -= gamespeed;
+                $gameboard.moveDown();
+            }
+        }
+        
+        thisbox.pausegame = function() {
+            surface.scheduler.pause();
+        }
+        
+        thisbox.startgame = function() {
+            gamespeed = 1000;
+            $gameboard.newPiece();
+            surface.scheduler.run(thisbox);
+        }
+        var keyPress = function(v) {
             switch(v) {
             case "left":
+                right = null;
+                left = true;
                 $gameboard.moveLeft();
                 break;
             case "right":
+                left = null;
+                right = true;
                 $gameboard.moveRight();
                 break;
             case "down":
+                down = true;
                 $gameboard.moveDown();
                 break;
             case " ":
@@ -149,9 +198,11 @@
                 break;
             case "up":
             case "a":
+                //countercw = true;
                 $gameboard.rotateCCW();
                 break;
             case "s":
+                //clockwise = true;
                 $gameboard.rotateCW();
                 break;
             case "p":
@@ -161,6 +212,28 @@
                 break;
             }
         }
+        var keyRelease = function(v) {
+            switch(v) {
+            case "left":
+                left = null;
+                lefttime = null;
+                break;
+            case "right":
+                right = null;
+                righttime = null;
+                break;
+            case "down":
+                down = false;
+                break;
+            // not required
+            //case " ":
+            //case "a":
+            //case "s":
+            //    break;
+            }
+        }
+        
+        //// transitions //////////////////////////////////////////////
         
         var hideFaders = function(v) {
             cascade = v;
@@ -174,18 +247,26 @@
             $build.fadeout = true;
             $keys1.fadeout = true;
             $keys2.fadeout = true;
-            $gameboard.startgame();
             _KeyPressed --= callee;
-            _KeyPressed ++= playGame;
+            _KeyPressed ++= keyPress;
+            _KeyReleased ++= keyRelease;
+            startgame();
             return;
         }
         
-        start ++= function(v) {
+        thisbox.next ++= function(v) {
             cascade = v;
             $backboard.zoom = true;
-            $gamemsgs.display = true;
-            _KeyPressed --= playGame;
-            _KeyPressed ++= startGame;
+            _KeyPressed --= startGame;
+        }
+        
+        thisbox.visible ++= function(v) {
+            cascade = v;
+            if (v) {
+                $backboard.zoom = true;
+                $gamemsgs.display = true;
+                _KeyPressed ++= startGame;
+            }
         }
         
     </screen>
