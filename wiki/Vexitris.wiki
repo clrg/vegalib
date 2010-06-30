@@ -2,6 +2,26 @@
 
 Vexitris aims to be a fun tetris implementation with a bit of individual character.  It is somewhat inspired by the classic tetris game 'Acid Tetris' for DOS.
 
+= Running =
+
+Download Vexi, Vegalib, and Vexitris files.
+
+From the command prompt:
+{{{
+java -jar vexi.jar vegalib.jar vexitris.jar
+}}}
+
+Obviously make sure the filenames match the files you downloaded i.e. add the version numbers.
+
+= Controls =
+
+Stated in-game but a reminder:
+ * *A* - rotate left
+ * *B* - rotate right
+ * *left/right* - move horizontally
+ * *down* - hold to rapidly lower
+ * *spacebar* - drop piece instantly
+
 = Videos =
 
  * [http://vimeo.com/3796249 Drop effect test]
