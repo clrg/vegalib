@@ -17,7 +17,7 @@ Obviously make sure the filenames match the files you downloaded i.e. add the ve
 
 Stated in-game but a reminder:
  * *A* - rotate left
- * *B* - rotate right
+ * *S* - rotate right
  * *left/right* - move horizontally
  * *down* - hold to rapidly lower
  * *spacebar* - drop piece instantly
