@@ -8,7 +8,7 @@ Download Vexi, Vegalib, and Vexitris files.
 
 From the command prompt:
 {{{
-java -jar vexi.jar vegalib.jar vexitris.jar
+java -jar vexi.jar vegalib.vexi vexitris.vexi
 }}}
 
 Obviously make sure the filenames match the files you downloaded i.e. add the version numbers.
