@@ -56,7 +56,9 @@
          *  if true, the call thread will continue when empty 
          */
         thisobj.start = function() {
-            if (tip) return;
+            if (tip) {
+                return;
+            }
             go = true;
             tip = true;
             time = vexi.date().getTime();
