@@ -20,6 +20,7 @@
                 startangle:0,        // integer
                 clockwise:true,      // boolean
                 orient:"horizontal", // "horizontal"|"vertical"
+                image:foo.bar        // Stream
             }
             
             Where:
@@ -39,54 +40,6 @@
             var customsprite = new .mygame.customsprite(initobj);
         </notes>
     </meta:doc>
-    
-    static.defaults = {
-        width:32,
-        height:32,
-        startangle:0,
-        clockwise:true
-        // box default orient:"horizontal"
-    }
-    
-    <ui:box align="topleft" layout="place">
-        <ui:box id="image" />
         
-        ////////
-        // Image handling
-        
-        thisbox.image ++= function(v) {
-            cascade = v;
-            $image.fill = v;
-        }
-        
-        var numframes;
-        var numanims;
-        
-        $image.width ++= function(v) {
-            cascade = v;
-            if (orient=="horizontal")
-                numframes = v / spritewidth;
-            else numanims = v / spritewidth;
-        }
-        
-        $image.height ++= function(v) {
-            cascade = v;
-            if (orient=="horizontal")
-                numanims = v / spritewidth;
-            else numframes = v / spritewidth;
-        }
-        
-        ////////
-        // Sprite logic
-        
-        var init = arguments.length ? arguments[0] : static.defaults;
-        var w = width = init.width;
-        var h = height = init.height;
-        var startangle = init.startangle;
-        var clockwise = init.clockwise;
-        
-        thisbox.angle ++= function(v) {
-        }
-        
-    </ui:box>
+    <sprite />
 </vexi>
