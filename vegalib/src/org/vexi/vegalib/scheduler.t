@@ -42,6 +42,7 @@
                 updates[i].over = true;
             }
             updates = [];
+            ulength = 0;
         }
         
         /** pause the call thread until start is called again */
