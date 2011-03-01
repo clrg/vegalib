@@ -35,7 +35,7 @@
             if (!v) {
                 return;
             }
-            thisbox.forcereflow();
+            thisbox.reflow();
             surface.facebox = alienbox;
             if (fadelist==null) return;
             var n = typeof(fadelist)=="array" ? fadelist.length : fadelist.numchildren;
