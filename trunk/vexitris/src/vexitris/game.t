@@ -129,25 +129,35 @@
         }
         
         var curtime;
+        var endGame; // = function, defined later
+        var gameover = true;
         var gamespeed = 1000;
         
         var left, right, down;
         var clockwise, countercw;
         
+        var movePieceDown = function() {
+            try { $gameboard.moveDown(); }
+            catch (e) { endGame(); }
+        }
+        
         thisbox.level ++= function(v) {
             cascade = v;
             gamespeed = 1000 - v*50;
+            vexi.trace("level: "+v+", "+gamespeed);
         }
         
         thisbox.call = function(gotime, dtime) {
+            if (gameover) return true;
+            
             curtime += dtime;
             if (left) {
                 if (lefttime==null) {
                     lefttime = 0;
                 }
                 lefttime += dtime;
-                while (lefttime > 100) {
-                    lefttime -= 100;
+                while (lefttime > 50) {
+                    lefttime -= 50;
                     $gameboard.moveLeft();
                 }
             }
@@ -156,15 +166,16 @@
                     righttime = 0;
                 }
                 righttime += dtime;
-                while (righttime > 100) {
-                    righttime -= 100;
+                while (righttime > 50) {
+                    righttime -= 50;
                     $gameboard.moveRight();
                 }
             }
             var downspeed = down ? 50 : gamespeed;
+            vexi.trace(curtime);
             while (curtime > gamespeed) {
                 curtime -= gamespeed;
-                $gameboard.moveDown();
+                movePieceDown();
             }
         }
         
@@ -177,6 +188,7 @@
             $gameboard.newPiece();
             surface.scheduler.run(thisbox);
         }
+        
         var keyPress = function(v) {
             switch(v) {
             case "left":
@@ -191,7 +203,7 @@
                 break;
             case "down":
                 down = true;
-                $gameboard.moveDown();
+                movePieceDown();
                 break;
             case " ":
                 $gameboard.drop();
@@ -225,6 +237,11 @@
             case "down":
                 down = false;
                 break;
+            case "p":
+            case "P":
+            case "pause":
+                surface.face = "aaah";
+                break;
             // not required
             //case " ":
             //case "a":
@@ -241,6 +258,9 @@
             trapee[trapname] --= callee;
         }
         
+        /*var*/ endGame = function() {
+            gameover = true;
+        }
         var startGame = function(v) {
             $helpme.finished ++= hideFaders;
             $helpme.fadeout = true;
