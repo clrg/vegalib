@@ -1,0 +1,17 @@
+<project name="grow" default="unarchive">
+
+    <property file="./version"/>
+	<property name="file" value="ebuild-${tag}.zip"/>
+	
+    <target name="fetch" unless="nofetch">
+    	<get src="http://repo.ebuild-project.org/download/0.7/ebuild-installation/${tag}/release/${file}"
+			 usetimestamp="true"
+    		 dest="./${file}"/>
+    </target>
+	
+	<target name="unarchive" depends="fetch"> 
+	    <unzip dest="../.." src="${file}"/> 
+	</target>
+	
+	
+</project>
