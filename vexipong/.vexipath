@@ -3,7 +3,10 @@
       <sources>
          <source-dir path="src"/>
       </sources>
-      <dependencies/>
+      <dependencies>
+         <path-entry type="project" name="vegalib"/>
+         <path-entry type="library" name="Widgets"/>
+      </dependencies>
    </main>
    <test>
       <sources/>

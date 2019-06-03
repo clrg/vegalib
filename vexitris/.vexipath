@@ -5,8 +5,8 @@
          <source-dir path="src_dev"/>
       </sources>
       <dependencies>
-         <path-entry type="library" name="Vexi Platform"/>
          <path-entry type="project" name="vegalib"/>
+         <path-entry type="library" name="Widgets"/>
       </dependencies>
    </main>
    <test>

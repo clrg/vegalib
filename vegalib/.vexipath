@@ -4,7 +4,9 @@
          <source-dir path="example"/>
          <source-dir path="src"/>
       </sources>
-      <dependencies/>
+      <dependencies>
+         <path-entry type="library" name="Widgets"/>
+      </dependencies>
    </main>
    <test>
       <sources/>
