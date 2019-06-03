@@ -125,7 +125,7 @@
             var bd = thisbox[3][1][0];
             var be = thisbox[3][2][0];
             var bf = thisbox[3][3][0];
-            if (clockwise) {
+            if (!clockwise) {
                 if (collide) {
                     // collision function provided
                     if (b0 and collide(0, 3) or
@@ -219,7 +219,7 @@
             var b6 = thisbox[2][0][0];
             var b7 = thisbox[2][1][0];
             var b8 = thisbox[2][2][0];
-            if (clockwise) {
+            if (!clockwise) {
                 if (collide) {
                     // collision function provided
                     if (b0 and collide(0, 2) or
